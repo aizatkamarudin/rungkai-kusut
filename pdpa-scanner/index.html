@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en-MY">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PDPA Data Scanner | Find Personal Data in Your Excel Files | Rungkai Kusut</title>
+<meta name="description" content="Free PDPA scanner for Malaysian businesses: find MyKad numbers, phone numbers, emails, addresses and sensitive data in your Excel or CSV, then download a masked copy. Runs in your browser.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#13203B">
+<link rel="canonical" href="https://rungkaikusut.com/pdpa-scanner/">
+<meta property="og:site_name" content="Rungkai Kusut">
+<meta property="og:locale" content="en_MY">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rungkaikusut.com/pdpa-scanner/">
+<meta property="og:title" content="PDPA Data Scanner: what personal data is hiding in your Excel?">
+<meta property="og:description" content="Find MyKad numbers, phones, emails, addresses and sensitive data in your spreadsheets, and download a masked copy that's safer to share. Free, and your file never leaves your browser.">
+<meta property="og:image" content="https://rungkaikusut.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PDPA Data Scanner",
+  "url": "https://rungkaikusut.com/pdpa-scanner/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (web browser)",
+  "inLanguage": "en-MY",
+  "description": "Free browser-based scanner that finds personal data (MyKad numbers, phone numbers, emails, addresses, sensitive data) in Excel and CSV files and creates a masked copy.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "MYR"},
+  "publisher": {"@type": "Organization", "name": "Rungkai Kusut", "url": "https://rungkaikusut.com/"}
+}
+</script>
+<style>
+:root{
+  --ink:#13203B; --ink-2:#2B3858; --muted:#5D6782;
+  --paper:#FBF8F2; --card:#FFFFFF; --line:#E8E1D4; --sand:#F4EFE5;
+  --gold:#F2B544; --gold-deep:#C98A12; --teal:#1E7A6C; --rose:#C2456B;
+  --max:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep)}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
+h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin:10px 0 12px}
+.lead{font-size:18px;color:var(--muted);max-width:660px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .15s,box-shadow .15s,background .15s;border:0;cursor:pointer;font-family:inherit}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(19,32,59,.25)}
+.btn-ghost{border:1.5px solid var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(242,181,68,.4)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+
+header{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.brand svg{width:32px;height:32px;flex:none}
+.brand small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:-3px}
+.nav-right{display:flex;align-items:center;gap:22px;font-weight:600;font-size:15px;color:var(--ink-2)}
+.nav-right a.plain:hover{color:var(--gold-deep)}
+
+.hero{padding:60px 0 32px}
+.hero h1{font-size:clamp(36px,5.6vw,64px);font-weight:800;margin:16px 0 18px}
+.hero h1 .serif{color:var(--gold-deep)}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.badges span{font-size:13.5px;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+
+.drop{margin:8px 0 80px;background:var(--card);border:2px dashed #D6CDBB;border-radius:24px;padding:48px 24px;text-align:center;transition:border-color .2s,background .2s}
+.drop.over{border-color:var(--gold-deep);background:#FFF9EC}
+.drop .ic{width:64px;height:64px;border-radius:18px;background:var(--ink);display:grid;place-items:center;margin:0 auto 18px}
+.drop .ic svg{width:30px;height:30px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.drop h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.drop p{color:var(--muted)}
+.drop .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.drop .fine{font-size:13px;margin-top:16px}
+#fileInput{display:none}
+.status{margin-top:14px;font-weight:600;min-height:1.4em}
+.status.err{color:var(--rose)}
+
+#results{display:none;padding-bottom:40px}
+#results.show{display:block}
+.block{margin-bottom:56px}
+.risk-card{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;background:var(--ink);color:#fff;border-radius:28px;padding:40px;position:relative;overflow:hidden}
+.risk-card::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(rgba(242,181,68,.2),transparent 65%);right:-140px;top:-180px;pointer-events:none}
+.shield{width:150px;height:150px;border-radius:32px;display:grid;place-items:center;text-align:center;background:#1B2A4A;border:2px solid #2A3962}
+.shield b{display:block;font-size:30px;font-weight:800;line-height:1.1}
+.shield small{font-size:12.5px;color:#9AA6C4;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.shield.high b{color:#F3A3B8}.shield.med b{color:var(--gold)}.shield.low b{color:#7FD8B0}.shield.none b{color:#7FD8B0}
+.risk-card h2{color:#fff;margin-top:6px}
+.risk-card .lead{color:#B9C2DA}
+.meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:22px}
+.meta div b{display:block;font-size:26px;font-weight:800;color:var(--gold)}
+.meta div span{font-size:13.5px;color:#B9C2DA}
+
+.finds{display:grid;gap:12px;margin-top:24px}
+.find{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--muted);border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:auto 1fr auto;gap:4px 16px;align-items:center}
+.find.high{border-left-color:var(--rose)}.find.med{border-left-color:var(--gold-deep)}.find.low{border-left-color:var(--teal)}
+.find input{width:18px;height:18px;accent-color:var(--ink);grid-row:span 2}
+.find h3{font-size:17px;font-weight:800}
+.find .cnt{font-weight:800;font-size:15px;white-space:nowrap;color:var(--ink-2);grid-row:span 2}
+.find p{color:var(--muted);font-size:14px}
+.find code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--sand);padding:2px 6px;border-radius:6px;color:var(--ink)}
+.tag{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin-left:8px;vertical-align:2px}
+.tag.high{background:#FBE7EE;color:var(--rose)}.tag.med{background:#FCF1D9;color:var(--gold-deep)}.tag.low{background:#E1F1EE;color:var(--teal)}
+.allgood{background:#E1F1EE;color:var(--teal);font-weight:700;border-radius:14px;padding:18px 22px}
+
+.recs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.rec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.rec h3{font-size:16px;font-weight:800;margin-bottom:4px}
+.rec p{color:var(--muted);font-size:14.5px}
+
+.table-wrap{margin-top:22px;overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:640px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis}
+th{background:var(--sand);font-weight:700}
+td.mask{background:#EEF6F4;font-weight:600;color:var(--teal);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.dl{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.note{font-size:13.5px;color:var(--muted);margin-top:12px}
+
+.lead-card{background:var(--ink);color:#fff;border-radius:28px;padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.lead-card h2{color:#fff}
+.lead-card .lead{color:#B9C2DA}
+.lead-card ul{list-style:none;margin-top:20px;display:grid;gap:10px;color:#DCE2F0;font-size:15px}
+.lead-card li::before{content:"✓ ";color:var(--gold);font-weight:800}
+form{display:grid;gap:12px}
+form label{font-size:13px;font-weight:700;color:#B9C2DA;display:grid;gap:6px}
+form input,form textarea{font-family:inherit;font-size:15px;padding:13px 15px;border-radius:12px;border:1.5px solid #34426A;background:#1B2A4A;color:#fff;outline:none}
+form input:focus,form textarea:focus{border-color:var(--gold)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-status{font-size:14.5px;font-weight:600;min-height:1em}
+.form-status.ok{color:#7FD8B0}
+.form-status.err{color:#F3A3B8}
+.form-status a{color:var(--gold);text-decoration:underline}
+.small{font-size:12.5px;color:#9AA6C4}
+
+.how{padding:20px 0 90px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.how-item{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.how-item b{font-size:13px;color:var(--gold-deep);letter-spacing:.1em}
+.how-item h3{font-size:17px;font-weight:800;margin:6px 0}
+.how-item p{color:var(--muted);font-size:14.5px}
+.disclaimer{margin-top:22px;font-size:13.5px;color:var(--muted);max-width:820px}
+.more{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+
+footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot a{color:var(--gold-deep);font-weight:700}
+
+@media (max-width:900px){
+  .risk-card,.lead-card{grid-template-columns:1fr;padding:30px 24px;gap:24px}
+  .recs,.how-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .nav-right a.plain{display:none}
+  .nav-right .btn{padding:10px 16px;font-size:14px}
+  .form-row{grid-template-columns:1fr}
+  .drop{padding:36px 18px}
+  .hero{padding:40px 0 24px}
+  .find{grid-template-columns:auto 1fr}
+  .find .cnt{grid-row:auto;grid-column:2}
+}
+
+.ill-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:0 0 28px}
+.ill-step{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 18px 20px}
+.ill-step .art{background:var(--sand);border-radius:14px;margin-bottom:14px}
+.ill-step svg{display:block;width:100%;height:auto}
+.ill-step b{font-size:12.5px;font-weight:800;letter-spacing:.1em;color:var(--gold-deep)}
+.ill-step h3{font-size:17px;font-weight:800;margin:4px 0 4px}
+.ill-step p{color:var(--muted);font-size:14.5px;line-height:1.5}
+@media (max-width:760px){.ill-steps{grid-template-columns:1fr}.ill-step{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;padding:14px}.ill-step h3{font-size:16px}.ill-step p{font-size:14px}.ill-step .art{margin:0}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="/" class="brand" aria-label="Rungkai Kusut home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#13203B"/><path d="M5 25 C 10 9, 17 29, 12 18 C 8 10, 21 8, 18 18 L 27 7" fill="none" stroke="#F2B544" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Rungkai Kusut<small>Data &amp; AI</small></span>
+    </a>
+    <div class="nav-right">
+      <a class="plain" href="/#free-tools">Free tools</a>
+      <a class="btn btn-dark" href="/#contact">Free health check</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Alat percuma · Free tool</span>
+    <h1>PDPA Data <span class="serif">Scanner.</span></h1>
+    <p class="lead">Staff lists, customer lists and claim forms often carry more personal data than people realise, and get forwarded on WhatsApp or email. Scan any Excel or CSV to see what's inside, how risky it is to share, and download a masked copy.</p>
+    <div class="badges">
+      <span>🔒 Your file never leaves your computer</span>
+      <span>✓ MyKad, phone, email, address, bank &amp; more</span>
+      <span>✓ Free, no sign-up</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="ill-steps"><div class="ill-step"><div class="art"><svg viewBox="0 0 220 120" role="img" aria-label="Drop your Excel or CSV file" xmlns="http://www.w3.org/2000/svg"><rect x="70" y="74" width="80" height="34" rx="10" fill="none" stroke="#CFC6B5" stroke-width="2" stroke-dasharray="5 4"/><rect x="88" y="20" width="44" height="50" rx="6" fill="#fff" stroke="#E8E1D4" stroke-width="1.5"/><path d="M88 26a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v6h-44z" fill="#1E7A6C"/><rect x="94" y="40" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="40" width="13" height="4" rx="2" fill="#CFC6B5"/><rect x="94" y="49" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="49" width="13" height="4" rx="2" fill="#CFC6B5"/><rect x="94" y="58" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="58" width="13" height="4" rx="2" fill="#CFC6B5"/><rect x="94" y="67" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="67" width="13" height="4" rx="2" fill="#CFC6B5"/><circle cx="136" cy="32" r="13" fill="#F2B544"/><path d="M136 39v-14M130 31l6-6 6 6" fill="none" stroke="#13203B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt"><b>01</b><h3>Drop your file</h3><p>Staff lists, customer lists, claim forms, any sheet.</p></div></div><div class="ill-step"><div class="art"><svg viewBox="0 0 220 120" role="img" aria-label="An ID card being found inside a file, with labels for MyKad, phone and email" xmlns="http://www.w3.org/2000/svg"><rect x="22" y="30" width="92" height="58" rx="8" fill="#fff" stroke="#C2456B" stroke-width="3"/><rect x="22" y="30" width="92" height="12" rx="6" fill="#13203B"/><rect x="22" y="36" width="92" height="6" fill="#13203B"/><circle cx="42" cy="62" r="9" fill="#CFC6B5"/><path d="M30 82a12 9 0 0 1 24 0z" fill="#CFC6B5"/><text x="60" y="60" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="#13203B">880101-14…</text><rect x="60" y="68" width="40" height="4" rx="2" fill="#CFC6B5"/><rect x="60" y="76" width="28" height="4" rx="2" fill="#CFC6B5"/><circle cx="108" cy="52" r="18" fill="rgba(255,255,255,.55)" stroke="#13203B" stroke-width="4"/><path d="M121 65L135 79" stroke="#13203B" stroke-width="6" stroke-linecap="round"/><rect x="140" y="20" width="64" height="22" rx="11" fill="#FBE7EE"/><text x="172" y="35" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="800" fill="#C2456B">MyKad</text><rect x="146" y="50" width="58" height="22" rx="11" fill="#FCF1D9"/><text x="175" y="65" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="800" fill="#C98A12">Phone</text><rect x="152" y="80" width="52" height="22" rx="11" fill="#E1F1EE"/><text x="178" y="95" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="10" font-weight="800" fill="#1E7A6C">Email</text></svg></div><div class="txt"><b>02</b><h3>We find personal data</h3><p>MyKad, phones, emails, addresses, bank and health info.</p></div></div><div class="ill-step"><div class="art"><svg viewBox="0 0 220 120" role="img" aria-label="A masked ID card protected by a shield" xmlns="http://www.w3.org/2000/svg"><rect x="34" y="32" width="92" height="58" rx="8" fill="#fff" stroke="#E8E1D4" stroke-width="1.5"/><rect x="34" y="32" width="92" height="12" rx="6" fill="#13203B"/><rect x="34" y="38" width="92" height="6" fill="#13203B"/><circle cx="54" cy="64" r="9" fill="#CFC6B5"/><path d="M42 84a12 9 0 0 1 24 0z" fill="#CFC6B5"/><text x="72" y="62" font-family="ui-monospace,Menlo,monospace" font-size="10" font-weight="700" fill="#1E7A6C">••••••5678</text><rect x="72" y="70" width="40" height="4" rx="2" fill="#CFC6B5"/><rect x="72" y="78" width="28" height="4" rx="2" fill="#CFC6B5"/><g transform="translate(168 60) scale(1.6)"><path d="M0 -20l17 6v12c0 10-7 18-17 21-10-3-17-11-17-21v-12z" fill="#1E7A6C"/><path d="M-7 1l5 5 9-10" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div><div class="txt"><b>03</b><h3>Share the masked copy</h3><p>Download a version with sensitive details hidden.</p></div></div></div>
+  <div class="drop" id="drop">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+    <h3>Drop an Excel or CSV file to scan</h3>
+    <p>or choose a file. Want to see how it works first? Try our sample staff list.</p>
+    <div class="actions">
+      <button class="btn btn-dark" id="pickBtn" type="button">Choose file</button>
+      <button class="btn btn-ghost" id="sampleBtn" type="button">Try sample data</button>
+    </div>
+    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv,.txt">
+    <p class="fine">Scans every sheet, up to 50,000 rows each. Everything runs in your browser; nothing is uploaded, stored or sent to us.</p>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<section id="results">
+  <div class="wrap">
+    <div class="block">
+      <div class="risk-card">
+        <div class="shield" id="shield"><div><small>Sharing risk</small><b id="riskLevel">—</b></div></div>
+        <div>
+          <span class="eyebrow" id="fileName">Scan result</span>
+          <h2 id="riskTitle">—</h2>
+          <p class="lead" id="riskText"></p>
+          <div class="meta">
+            <div><b id="mPeople">0</b><span>records with personal data</span></div>
+            <div><b id="mCells">0</b><span>personal data cells</span></div>
+            <div><b id="mTypes">0</b><span>types found</span></div>
+            <div><b id="mSheets">0</b><span>sheets scanned</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="eyebrow">Apa yang dijumpai</span>
+      <h2>Personal data found.</h2>
+      <p class="lead">Untick anything you want to keep visible in the masked copy. Examples below are already masked.</p>
+      <div class="finds" id="finds"></div>
+    </div>
+
+    <div class="block" id="recBlock">
+      <span class="eyebrow">Langkah seterusnya</span>
+      <h2>What to do about it.</h2>
+      <div class="recs" id="recs"></div>
+    </div>
+
+    <div class="block" id="maskBlock">
+      <span class="eyebrow">Salinan bertopeng</span>
+      <h2>Your masked copy.</h2>
+      <p class="lead">A preview of the first rows with personal data masked. Use this version when sharing with vendors, consultants or anyone who doesn't need the full details.</p>
+      <div class="table-wrap"><table id="preview"></table></div>
+      <div class="dl">
+        <button class="btn btn-gold" id="dlXlsx" type="button">Download masked Excel →</button>
+        <button class="btn btn-ghost" id="dlCsv" type="button">Download as CSV</button>
+      </div>
+      <p class="note">Masking keeps the last 4 digits so records can still be matched. Keep the original file somewhere access-controlled.</p>
+    </div>
+
+    <div class="block">
+      <div class="lead-card">
+        <div>
+          <span class="eyebrow">Jom rungkai</span>
+          <h2>Keep personal data safe, properly.</h2>
+          <p class="lead">Masking one file is a start. We help SMEs move personal data out of scattered spreadsheets into systems with proper access control, audit trails and backups.</p>
+          <ul>
+            <li>Personalised data protection clean-up plan</li>
+            <li>Free 45-minute data health check</li>
+            <li>Enterprise-grade governance at SME prices</li>
+          </ul>
+        </div>
+        <form id="leadForm">
+          <div class="form-row">
+            <label>Name<input name="name" required placeholder="Your name"></label>
+            <label>Company<input name="org" placeholder="Company name"></label>
+          </div>
+          <label>Email<input type="email" name="email" required placeholder="you@company.com"></label>
+          <label>Phone / WhatsApp (optional)<input name="phone" placeholder="012-345 6789"></label>
+          <label>Where does this data live today? (optional)<textarea name="msg" rows="3" placeholder="e.g. HR Excel on shared drive, sent to payroll vendor monthly"></textarea></label>
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+          <button class="btn btn-gold" type="submit">Send me a clean-up plan →</button>
+          <p class="small">We only receive the summary of types and counts, never the data itself.</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <span class="eyebrow">Kenapa ia penting</span>
+    <h2>PDPA got stricter.</h2>
+    <p class="lead">Malaysia's Personal Data Protection (Amendment) Act 2024 added biometric data to sensitive personal data and raised the maximum fine to RM1 million from April 2025. Since June 2025, data controllers must notify the Commissioner of data breaches, and many must appoint a data protection officer.</p>
+    <div class="how-grid">
+      <div class="how-item"><b>01</b><h3>Know what you hold</h3><p>You can't protect data you don't know you have. Old exports and copies of copies are where most leaks start.</p></div>
+      <div class="how-item"><b>02</b><h3>Share the minimum</h3><p>Vendors, interns and WhatsApp groups rarely need full MyKad numbers or home addresses. Mask before you send.</p></div>
+      <div class="how-item"><b>03</b><h3>Move it into a system</h3><p>A proper system gives each person only the access they need, logs who viewed what, and backs everything up.</p></div>
+    </div>
+    <p class="disclaimer">This scanner looks for common patterns and column names, so it can miss data or flag false matches. It's a quick check, not legal advice or a compliance certificate. For PDPA obligations, refer to the Personal Data Protection Commissioner's guidance or a legal adviser.</p>
+    <div class="more">
+      <a class="btn btn-ghost" href="/data-checker/">Free tool: Data Kusut Checker →</a>
+      <a class="btn btn-ghost" href="/kos-kerja-manual/">Free tool: Kos Kerja Manual calculator →</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>© <span id="yr"></span> Rungkai Kusut · Data kusut, jadi keputusan jelas.</div>
+    <a href="/">← Back to rungkaikusut.com</a>
+  </div>
+</footer>
+
+<script src="/data-checker/vendor/xlsx.full.min.js"></script>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+$('yr').textContent = new Date().getFullYear();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => Number(n).toLocaleString('en-MY');
+const MAX_ROWS = 50000;
+const show = v => v === null || v === undefined ? '' : v instanceof Date ? `${v.getFullYear()}-${String(v.getMonth() + 1).padStart(2, '0')}-${String(v.getDate()).padStart(2, '0')}` : String(v);
+
+// ---------- detectors ----------
+const BAD_PB = new Set(['00', '17', '18', '19', '20', '69', '70', '73', '80', '81', '94', '95', '96', '97']);
+const keepLast = (s, n = 4) => { let seen = 0; return s.split('').reverse().map(ch => /\d/.test(ch) ? (seen++ < n ? ch : '•') : ch).reverse().join(''); };
+const luhn = d => { let s = 0, alt = false; for (let i = d.length - 1; i >= 0; i--) { let n = +d[i]; if (alt) { n *= 2; if (n > 9) n -= 9; } s += n; alt = !alt; } return s % 10 === 0; };
+const initials = s => s.split(/\s+/).filter(Boolean).map(w => w[0].toUpperCase() + '.').join(' ');
+
+// content detectors: find spans inside any cell
+const CONTENT = [
+  {key: 'ic', label: 'MyKad / IC numbers', sev: 'high', weight: 30,
+    re: /(?<!\d)(\d{2})(\d{2})(\d{2})(-?)(\d{2})(-?)(\d{4})(?!\d)/g,
+    ok: m => { const mo = +m[2], d = +m[3]; return mo >= 1 && mo <= 12 && d >= 1 && d <= 31 && !BAD_PB.has(m[5]) && m[4] === m[6]; },
+    mask: s => keepLast(s)},
+  {key: 'card', label: 'Payment card numbers', sev: 'high', weight: 30,
+    re: /(?<!\d)[3-6]\d{3}(?:[ -]?\d{4}){2}[ -]?\d{1,7}(?!\d)/g,
+    ok: m => { const d = m[0].replace(/\D/g, ''); return d.length >= 13 && d.length <= 19 && luhn(d); },
+    mask: s => keepLast(s)},
+  {key: 'passport', label: 'Passport numbers', sev: 'high', weight: 20,
+    re: /\b[AHK]\d{8}\b/g, ok: () => true, mask: s => s[0] + '••••••' + s.slice(-2)},
+  {key: 'email', label: 'Email addresses', sev: 'low', weight: 6,
+    re: /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g, ok: () => true,
+    mask: s => { const [u, d] = s.split('@'); return u[0] + '•••@' + d; }},
+  {key: 'phone', label: 'Phone numbers', sev: 'med', weight: 8,
+    re: /(?<![\d+])(?:(?:\+?60[\s-]?|0)1\d[\s-]?\d{3,4}[\s-]?\d{4}|(?:\+?60[\s-]?|0)[3-9][\s-]?\d{3,4}[\s-]?\d{4})(?!\d)/g, ok: () => true,
+    mask: s => keepLast(s)},
+  {key: 'address', label: 'Home / postal addresses', sev: 'med', weight: 10,
+    re: /^(?=.*\b\d{5}\b)(?=.*\b(?:jalan|jln|taman|tmn|lorong|lrg|persiaran|kampung|kg|lot|blok|block|apartment|pangsapuri|seksyen|section|no\.?\s?\d)).{12,}$/i, ok: () => true,
+    mask: () => '[address removed]', whole: true}
+];
+// header-based detectors: whole column flagged by its name
+const HEADERS = [
+  {key: 'sensitive', label: 'Sensitive personal data (health, religion, etc.)', sev: 'high', weight: 30,
+    re: /(kesihatan|health|medical|perubatan|penyakit|diagnos|allerg|alahan|ubat|medication|disab|oku|agama|religion|politi|parti|jenayah|criminal|offen[cs]e|kesalahan|saman|biometri|cap jari|fingerprint|face ?id)/i, mask: () => '[removed]'},
+  {key: 'bank', label: 'Bank account numbers', sev: 'high', weight: 20,
+    re: /(akaun|account|acc\.? ?no|bank)/i, valueOk: v => /^\s*[\d\s-]{8,20}\s*$/.test(v), mask: s => keepLast(s)},
+  {key: 'salary', label: 'Salary & income', sev: 'med', weight: 12,
+    re: /(gaji|salary|pendapatan|income|elaun|allowance|bonus|epf|kwsp|socso|perkeso)/i, mask: () => '[removed]'},
+  {key: 'dob', label: 'Dates of birth', sev: 'med', weight: 10,
+    re: /(\bdob\b|tarikh lahir|tkh lahir|date of birth|birth ?date|birthday|hari jadi|\blahir\b)/i, mask: v => { const m = String(v).match(/(19|20)\d{2}/); return m ? '••/••/' + m[0] : '[removed]'; }},
+  {key: 'address', label: 'Home / postal addresses', sev: 'med', weight: 10,
+    re: /(alamat(?! e-?mel)(?! email)|(?<!e-?mail ?)address|poskod|postcode)/i, valueOk: v => !/@/.test(v), mask: () => '[address removed]'},
+  {key: 'name', label: 'Names of people', sev: 'low', weight: 5,
+    re: /^(nama|name|full ?name|nama penuh|nama pekerja|employee name|staff name|nama pelanggan|customer name|nama waris|next of kin|waris|contact person|pic)$/i, valueOk: v => /[A-Za-z]/.test(v) && v.length < 80, mask: v => initials(String(v))},
+  {key: 'ic', label: 'MyKad / IC numbers', sev: 'high', weight: 30,
+    re: /(\bic\b|no\.? ?k\/?p|kad pengenalan|mykad|nric|identity card|i\/c)/i, valueOk: v => /\d{6,}/.test(String(v).replace(/\D/g, '')), mask: s => keepLast(String(s))}
+];
+const TYPE_INFO = {};
+CONTENT.concat(HEADERS).forEach(d => { if (!TYPE_INFO[d.key]) TYPE_INFO[d.key] = {label: d.label, sev: d.sev, weight: d.weight}; });
+
+// ---------- scan ----------
+function scan(sheets) {
+  const found = {}; // key -> {cells, cols:Set, example}
+  const rowsWithPd = [];
+  let cells = 0;
+  const add = (key, col, example) => {
+    const f = found[key] || (found[key] = {cells: 0, cols: new Set(), example: null});
+    f.cells++; f.cols.add(col); if (!f.example && example) f.example = example;
+  };
+  sheets.forEach(sh => {
+    sh.hits = sh.rows.map(() => sh.headers.map(() => []));
+    sh.colRules = sh.headers.map(h => HEADERS.filter(d => d.key !== 'name' && d.re.test(h)));
+    const nameRule = HEADERS.find(d => d.key === 'name');
+    const nameCols = sh.headers.map((h, c) => nameRule.re.test(h) ? c : -1).filter(c => c >= 0);
+    let sheetHit = false;
+    const rowAny = sh.rows.map(() => false);
+    sh.rows.forEach((row, r) => {
+      let any = false;
+      row.forEach((v, c) => {
+        const s = show(v).trim(); if (!s) return;
+        const col = sh.multi ? `${sh.name} › ${sh.headers[c]}` : sh.headers[c];
+        // header rules apply to the whole cell
+        const hr = sh.colRules[c].find(d => !d.valueOk || d.valueOk(s));
+        if (hr) { sh.hits[r][c].push({key: hr.key, whole: true, mask: hr.mask}); add(hr.key, col, hr.mask(s)); any = true; cells++; return; }
+        let hit = false;
+        for (const d of CONTENT) {
+          d.re.lastIndex = 0;
+          let m;
+          if (d.whole) { if (d.re.test(s)) { sh.hits[r][c].push({key: d.key, whole: true, mask: d.mask}); add(d.key, col, d.mask(s)); hit = true; } continue; }
+          while ((m = d.re.exec(s))) {
+            if (!d.ok(m)) continue;
+            // skip phone matches that are part of an IC already found
+            if (sh.hits[r][c].some(h => h.start !== undefined && m.index < h.end && m.index + m[0].length > h.start)) continue;
+            sh.hits[r][c].push({key: d.key, start: m.index, end: m.index + m[0].length, mask: d.mask});
+            add(d.key, col, d.mask(m[0])); hit = true;
+          }
+        }
+        if (hit) { any = true; cells++; }
+      });
+      if (any) { rowAny[r] = true; sheetHit = true; }
+    });
+    // a plain "Name" column only counts as personal data when the sheet holds other personal data too
+    if (sheetHit) nameCols.forEach(c => sh.rows.forEach((row, r) => {
+      const s = show(row[c]).trim();
+      if (!s || !nameRule.valueOk(s) || sh.hits[r][c].length) return;
+      sh.hits[r][c].push({key: 'name', whole: true, mask: nameRule.mask});
+      add('name', sh.multi ? `${sh.name} › ${sh.headers[c]}` : sh.headers[c], nameRule.mask(s)); cells++; rowAny[r] = true;
+    }));
+    rowAny.forEach(a => { if (a) rowsWithPd.push(1); });
+  });
+  return {found, people: rowsWithPd.length, cells};
+}
+
+function maskCell(v, hits, enabled) {
+  const s = show(v);
+  const act = hits.filter(h => enabled.has(h.key));
+  if (!act.length) return {v, masked: false};
+  const whole = act.find(h => h.whole);
+  if (whole) return {v: whole.mask(s), masked: true};
+  let out = s;
+  act.slice().sort((a, b) => b.start - a.start).forEach(h => { out = out.slice(0, h.start) + h.mask(s.slice(h.start, h.end)) + out.slice(h.end); });
+  return {v: out, masked: true};
+}
+
+// ---------- reading ----------
+const isBlank = v => v === null || v === undefined || String(v).trim() === '';
+function toTable(aoa) {
+  let hIdx = 0;
+  const width0 = Math.max(1, ...aoa.slice(0, 20).map(x => (x || []).length));
+  for (let i = 0; i < Math.min(10, aoa.length); i++) {
+    const filled = (aoa[i] || []).filter(v => !isBlank(v)).length;
+    if (filled >= Math.max(2, Math.ceil(width0 * 0.5))) { hIdx = i; break; }
+  }
+  const head = aoa[hIdx] || [];
+  const body = aoa.slice(hIdx + 1);
+  const width = Math.max(head.length, ...body.slice(0, 200).map(r => (r || []).length), 0);
+  const headers = Array.from({length: width}, (_, c) => isBlank(head[c]) ? `Column ${c + 1}` : String(head[c]).trim().replace(/\s+/g, ' '));
+  const rows = body.map(r => Array.from({length: width}, (_, c) => r && r[c] !== undefined ? r[c] : null)).filter(r => r.some(v => !isBlank(v))).slice(0, MAX_ROWS);
+  return {headers, rows};
+}
+async function readFile(file) {
+  let wb;
+  if (/\.(csv|txt)$/i.test(file.name)) wb = XLSX.read(await file.text(), {type: 'string', raw: true});
+  else wb = XLSX.read(await file.arrayBuffer(), {type: 'array', cellDates: true});
+  const multi = wb.SheetNames.length > 1;
+  return wb.SheetNames.map(name => {
+    const aoa = XLSX.utils.sheet_to_json(wb.Sheets[name], {header: 1, defval: null, raw: true});
+    return {name, multi, ...toTable(aoa)};
+  }).filter(s => s.rows.length);
+}
+
+// ---------- render ----------
+let state = null;
+function render(sheets, label) {
+  const res = scan(sheets);
+  state = {sheets, label, res, enabled: new Set(Object.keys(res.found))};
+  $('results').classList.add('show');
+  $('fileName').textContent = label;
+  const keys = Object.keys(res.found).sort((a, b) => TYPE_INFO[b].weight - TYPE_INFO[a].weight || res.found[b].cells - res.found[a].cells);
+  const score = Math.min(100, keys.reduce((a, k) => a + TYPE_INFO[k].weight, 0));
+  const level = !keys.length ? 'none' : score >= 40 || keys.some(k => TYPE_INFO[k].sev === 'high') ? 'high' : score >= 15 ? 'med' : 'low';
+  const L = {
+    none: ['None found', 'No personal data detected.', 'We didn\'t find common personal data patterns or column names in this file. Still check free-text columns by eye before sharing.'],
+    low: ['Low', 'Low risk, but still personal data.', 'This file has contact details. Fine for internal use, but share only with people who need them.'],
+    med: ['Medium', 'Handle with care.', 'This file links people to contact details, addresses or financial info. Mask it before sending outside your team.'],
+    high: ['High', 'High risk: don\'t share this file as it is.', 'It contains identity numbers, financial or sensitive data. If it leaks, it could expose people to fraud, and your business to PDPA action.']
+  }[level];
+  $('shield').className = 'shield ' + level;
+  $('riskLevel').textContent = L[0];
+  $('riskTitle').textContent = L[1];
+  $('riskText').textContent = L[2];
+  $('mPeople').textContent = fmt(res.people);
+  $('mCells').textContent = fmt(res.cells);
+  $('mTypes').textContent = fmt(keys.length);
+  $('mSheets').textContent = fmt(sheets.length);
+
+  $('finds').innerHTML = keys.length ? keys.map(k => {
+    const f = res.found[k], t = TYPE_INFO[k];
+    const cols = [...f.cols];
+    return `<label class="find ${t.sev}"><input type="checkbox" data-k="${k}" checked>
+      <h3>${esc(t.label)}<span class="tag ${t.sev}">${t.sev === 'med' ? 'medium' : t.sev}</span></h3>
+      <span class="cnt">${fmt(f.cells)} ${f.cells === 1 ? 'cell' : 'cells'}</span>
+      <p>In ${cols.slice(0, 3).map(c => `<code>${esc(c)}</code>`).join(', ')}${cols.length > 3 ? ` +${cols.length - 3} more` : ''}${f.example ? ` · e.g. <code>${esc(f.example)}</code>` : ''}</p></label>`;
+  }).join('') : '<div class="allgood">No personal data patterns found. Nice and clean.</div>';
+  document.querySelectorAll('.find input').forEach(cb => cb.addEventListener('change', () => {
+    cb.checked ? state.enabled.add(cb.dataset.k) : state.enabled.delete(cb.dataset.k);
+    renderPreview();
+  }));
+
+  const recs = [];
+  const has = k => !!res.found[k];
+  if (has('ic') || has('passport')) recs.push(['Don\'t forward full IC numbers', 'Payroll vendors and insurers may need them; most others don\'t. Share the masked copy, or only the last 4 digits for matching.']);
+  if (has('card')) recs.push(['Remove card numbers from spreadsheets', 'Full card numbers shouldn\'t live in Excel at all. Your payment provider should hold them, not your files.']);
+  if (has('sensitive')) recs.push(['Restrict sensitive data to named people', 'Health, religion and similar data is "sensitive personal data" under PDPA and needs explicit consent and tighter access. Keep it in a separate, access-controlled file or system.']);
+  if (has('bank') || has('salary')) recs.push(['Separate pay data from contact lists', 'Bank details and salaries belong in payroll, visible to HR only, not in the same sheet as a team contact list.']);
+  if (has('phone') || has('email')) recs.push(['Stop sharing contact lists in WhatsApp groups', 'Use a shared system with access rights instead of forwarding the file. Anyone in the group can save and re-share it.']);
+  if (has('address') || has('dob')) recs.push(['Ask if you need it at all', 'If addresses or birth dates aren\'t needed for the purpose, delete those columns. Data you don\'t hold can\'t leak.']);
+  if (keys.length) recs.push(['Password-protect and track copies', 'Protect the original, store it in one place (not personal laptops or email attachments) and delete old exports.']);
+  $('recs').innerHTML = recs.slice(0, 6).map(([h, p]) => `<div class="rec"><h3>${esc(h)}</h3><p>${esc(p)}</p></div>`).join('');
+  $('recBlock').style.display = recs.length ? '' : 'none';
+  $('maskBlock').style.display = keys.length ? '' : 'none';
+  state.level = level; state.keys = keys;
+  renderPreview();
+  setTimeout(() => $('results').scrollIntoView({behavior: 'smooth', block: 'start'}), 120);
+}
+
+function renderPreview() {
+  const sh = state.sheets.find(s => s.hits.some(r => r.some(c => c.length))) || state.sheets[0];
+  const n = Math.min(10, sh.rows.length);
+  let html = (state.sheets.length > 1 ? `<caption style="text-align:left;padding:10px 12px;font-weight:700">Sheet: ${esc(sh.name)}</caption>` : '') + '<thead><tr>' + sh.headers.map(h => `<th>${esc(h)}</th>`).join('') + '</tr></thead><tbody>';
+  for (let r = 0; r < n; r++) {
+    html += '<tr>' + sh.rows[r].map((v, c) => { const m = maskCell(v, sh.hits[r][c], state.enabled); return `<td class="${m.masked ? 'mask' : ''}">${esc(show(m.v))}</td>`; }).join('') + '</tr>';
+  }
+  $('preview').innerHTML = html + '</tbody>';
+}
+
+function maskedAoa(sh) {
+  return [sh.headers].concat(sh.rows.map((row, r) => row.map((v, c) => maskCell(v, sh.hits[r][c], state.enabled).v)));
+}
+const baseName = () => (state.label || 'data').replace(/\.[^.]+$/, '').replace(/[^\w\- ]+/g, '').trim() || 'data';
+$('dlXlsx').onclick = () => {
+  const wb = XLSX.utils.book_new();
+  state.sheets.forEach(sh => XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(maskedAoa(sh)), sh.name.slice(0, 31)));
+  XLSX.writeFile(wb, `${baseName()}-masked.xlsx`);
+};
+$('dlCsv').onclick = () => {
+  const sh = state.sheets.find(s => s.hits.some(r => r.some(c => c.length))) || state.sheets[0];
+  const csv = XLSX.utils.sheet_to_csv(XLSX.utils.aoa_to_sheet(maskedAoa(sh)));
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], {type: 'text/csv;charset=utf-8'})); a.download = `${baseName()}-masked.csv`;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+};
+
+// ---------- input ----------
+const status = (msg, err) => { $('status').textContent = msg; $('status').className = 'status' + (err ? ' err' : ''); };
+async function handleFile(file) {
+  if (!file) return;
+  if (!/\.(xlsx|xls|csv|txt)$/i.test(file.name)) return status('Please choose an Excel (.xlsx, .xls) or CSV file.', true);
+  if (file.size > 30 * 1024 * 1024) return status('That file is over 30 MB. Try saving just the sheet you want to scan.', true);
+  status('Scanning…');
+  try {
+    const sheets = await readFile(file);
+    if (!sheets.length) return status('We couldn\'t find any data in this file.', true);
+    setTimeout(() => { render(sheets, file.name); status(`Done: ${fmt(sheets.reduce((a, s) => a + s.rows.length, 0))} rows scanned across ${sheets.length} ${sheets.length === 1 ? 'sheet' : 'sheets'}.`); }, 20);
+  } catch (e) {
+    console.error(e);
+    status('Sorry, we couldn\'t read that file. If it\'s password-protected, save an unprotected copy and try again.', true);
+  }
+}
+const drop = $('drop');
+$('pickBtn').onclick = () => $('fileInput').click();
+$('fileInput').onchange = e => { handleFile(e.target.files[0]); e.target.value = ''; };
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => handleFile(e.dataTransfer.files[0]));
+$('sampleBtn').onclick = () => {
+  const t = toTable(sampleData());
+  render([{name: 'Senarai Staf', multi: false, ...t}], 'Sample: senarai-staf.xlsx');
+  status(`Done: ${t.rows.length} rows scanned. This sample uses made-up people.`);
+};
+
+function sampleData() {
+  let seed = 11;
+  const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const pick = a => a[Math.floor(rnd() * a.length)];
+  const first = ['Ahmad', 'Nur Aisyah', 'Muhammad Hafiz', 'Siti Zulaikha', 'Tan Wei Ming', 'Lim Mei Ling', 'Rajesh', 'Priya', 'Farah', 'Daniel', 'Hakim', 'Wong Kar Yee'];
+  const last = ['bin Ismail', 'binti Rahman', 'bin Abdullah', 'binti Yusof', '', '', 'a/l Kumar', 'a/p Subramaniam', 'binti Hassan', 'Lee', 'bin Osman', ''];
+  const roads = ['No. 12, Jalan SS 2/24', 'No. 8, Jalan Kenari 3, Taman Puchong Jaya', 'Lot 45, Kampung Baru Subang', 'B-3-7, Pangsapuri Seri Melati, Jalan PJU 1A/3', 'No. 21, Lorong Maarof, Bangsar'];
+  const towns = ['47300 Petaling Jaya, Selangor', '47100 Puchong, Selangor', '40150 Shah Alam, Selangor', '59000 Kuala Lumpur'];
+  const depts = ['Operasi', 'Kewangan', 'Jualan', 'HR', 'Gudang'];
+  const health = ['', '', '', 'Asma', 'Alahan kacang', '', 'Kencing manis', ''];
+  const rows = [['Nama', 'No. K/P', 'Jabatan', 'Telefon', 'Email', 'Alamat', 'Tarikh Lahir', 'Gaji (RM)', 'No. Akaun Bank', 'Catatan Kesihatan', 'Catatan']];
+  for (let i = 0; i < 24; i++) {
+    const yy = 80 + Math.floor(rnd() * 20), mm = 1 + Math.floor(rnd() * 12), dd = 1 + Math.floor(rnd() * 28);
+    const pb = pick(['10', '14', '08', '01', '06']);
+    const ic = `${yy}${String(mm).padStart(2, '0')}${String(dd).padStart(2, '0')}-${pb}-${String(1000 + Math.floor(rnd() * 8999))}`;
+    const ph = `01${pick(['2', '3', '7', '9'])}-${String(100 + Math.floor(rnd() * 899))} ${String(1000 + Math.floor(rnd() * 8999))}`;
+    const nm = `${first[i % first.length]} ${last[i % last.length]}`.trim();
+    const em = nm.toLowerCase().replace(/[^a-z]/g, '').slice(0, 10) + '@contohsyarikat.my';
+    const note = i === 3 ? `Waris: isteri, 012-998 1234` : i === 7 ? `Salinan IC ${ic} dihantar ke insurans` : '';
+    rows.push([nm, ic, pick(depts), ph, em, `${pick(roads)}, ${pick(towns)}`, `${String(dd).padStart(2, '0')}/${String(mm).padStart(2, '0')}/19${yy}`, 2200 + Math.floor(rnd() * 40) * 100, `1${String(Math.floor(rnd() * 1e11)).padStart(11, '0')}`, pick(health), note]);
+  }
+  return rows;
+}
+
+// ---------- lead form ----------
+const WEB3FORMS_KEY = 'df75ce75-fcca-4a46-b1af-33852c53a3ea';
+$('leadForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target, f = new FormData(form), btn = form.querySelector('button[type=submit]'), st = $('formStatus');
+  if (f.get('botcheck')) return;
+  btn.disabled = true; btn.textContent = 'Sending…'; st.textContent = ''; st.className = 'form-status';
+  const s = state;
+  const summary = s ? [`Risk: ${s.level}`, `File: ${s.label}`, `Records with personal data: ${s.res.people}`, 'Types found:'].concat(s.keys.map(k => `- ${TYPE_INFO[k].label}: ${s.res.found[k].cells} cells`)).join('\n') : 'No file scanned';
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify({access_key: WEB3FORMS_KEY, subject: `[PDPA Scanner] Risk ${s ? s.level : '?'} — ${f.get('name')}${f.get('org') ? ' (' + f.get('org') + ')' : ''}`, from_name: 'Rungkai Kusut PDPA Scanner', replyto: f.get('email'),
+        name: f.get('name'), company: f.get('org'), email: f.get('email'), phone: f.get('phone'), where_data_lives: f.get('msg'), scan_summary: summary})
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message);
+    form.reset();
+    st.textContent = 'Terima kasih! We\'ll send your clean-up plan within one working day.'; st.classList.add('ok');
+  } catch (err) {
+    st.innerHTML = 'Sorry, something went wrong. Please email <a href="mailto:hello@rungkaikusut.com">hello@rungkaikusut.com</a>.'; st.classList.add('err');
+  } finally { btn.disabled = false; btn.textContent = 'Send me a clean-up plan →'; }
+});
+})();
+</script>
+</body>
+</html>

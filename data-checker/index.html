@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en-MY">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Kusut Checker | Free Excel &amp; CSV Data Quality Tool | Rungkai Kusut</title>
+<meta name="description" content="Free tool for Malaysian SMEs: check your Excel or CSV for duplicates, blanks and messy formats, get a data health score and download a cleaned file. Runs in your browser.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#13203B">
+<link rel="canonical" href="https://rungkaikusut.com/data-checker/">
+<meta property="og:site_name" content="Rungkai Kusut">
+<meta property="og:locale" content="en_MY">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://rungkaikusut.com/data-checker/">
+<meta property="og:title" content="Data Kusut Checker: free data health check for your Excel">
+<meta property="og:description" content="Drop in your Excel or CSV. Get a health score, see what's messy, and download a cleaned file in seconds. Your data never leaves your browser.">
+<meta property="og:image" content="https://rungkaikusut.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Data Kusut Checker",
+  "url": "https://rungkaikusut.com/data-checker/",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (web browser)",
+  "inLanguage": "en-MY",
+  "description": "Free browser-based data quality checker for Excel and CSV files: finds duplicates, blanks, inconsistent names, mixed date formats and numbers stored as text, then downloads a cleaned file.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "MYR"},
+  "publisher": {"@type": "Organization", "name": "Rungkai Kusut", "url": "https://rungkaikusut.com/"}
+}
+</script>
+<style>
+:root{
+  --ink:#13203B; --ink-2:#2B3858; --muted:#5D6782;
+  --paper:#FBF8F2; --card:#FFFFFF; --line:#E8E1D4; --sand:#F4EFE5;
+  --gold:#F2B544; --gold-deep:#C98A12; --teal:#1E7A6C; --rose:#C2456B;
+  --radius:18px; --max:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-style:italic}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep)}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
+h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
+h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;margin:10px 0 12px}
+.lead{font-size:18px;color:var(--muted);max-width:640px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .15s,box-shadow .15s,background .15s;border:0;cursor:pointer;font-family:inherit}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(19,32,59,.25)}
+.btn-ghost{border:1.5px solid var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(242,181,68,.4)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+
+header{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.brand svg{width:32px;height:32px;flex:none}
+.brand small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:-3px}
+.nav-right{display:flex;align-items:center;gap:22px;font-weight:600;font-size:15px;color:var(--ink-2)}
+.nav-right a.plain:hover{color:var(--gold-deep)}
+
+.hero{padding:64px 0 36px}
+.hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;margin:16px 0 18px}
+.hero h1 .serif{color:var(--gold-deep)}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.badges span{font-size:13.5px;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.badges span b{color:var(--teal)}
+
+.drop{margin:8px 0 80px;background:var(--card);border:2px dashed #D6CDBB;border-radius:24px;padding:48px 24px;text-align:center;transition:border-color .2s,background .2s}
+.drop.over{border-color:var(--gold-deep);background:#FFF9EC}
+.drop .ic{width:64px;height:64px;border-radius:18px;background:var(--ink);display:grid;place-items:center;margin:0 auto 18px}
+.drop .ic svg{width:30px;height:30px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.drop h3{font-size:22px;font-weight:800;margin-bottom:6px}
+.drop p{color:var(--muted)}
+.drop .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.drop .fine{font-size:13px;margin-top:16px}
+#fileInput{display:none}
+.status{margin-top:14px;font-weight:600;min-height:1.4em}
+.status.err{color:var(--rose)}
+
+#results{display:none;padding-bottom:40px}
+#results.show{display:block}
+.block{margin-bottom:56px}
+.score-card{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;background:var(--ink);color:#fff;border-radius:28px;padding:40px;position:relative;overflow:hidden}
+.score-card::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(rgba(242,181,68,.22),transparent 65%);right:-140px;top:-180px;pointer-events:none}
+.gauge{width:180px;height:180px;position:relative}
+.gauge svg{width:180px;height:180px;transform:rotate(-90deg)}
+.gauge .num{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.gauge .num b{display:block;font-size:52px;font-weight:800;line-height:1}
+.gauge .num small{font-size:13px;color:#9AA6C4;font-weight:600}
+.score-card h2{color:#fff;margin-top:6px}
+.score-card .lead{color:#B9C2DA}
+.score-meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:22px}
+.score-meta div b{display:block;font-size:26px;font-weight:800;color:var(--gold)}
+.score-meta div span{font-size:13.5px;color:#B9C2DA}
+
+.issues{display:grid;gap:12px;margin-top:26px}
+.issue{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--muted);border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:1fr auto;gap:6px 20px;align-items:start}
+.issue.high{border-left-color:var(--rose)}
+.issue.med{border-left-color:var(--gold-deep)}
+.issue.low{border-left-color:var(--teal)}
+.issue h3{font-size:17px;font-weight:800}
+.issue .cnt{font-weight:800;font-size:15px;white-space:nowrap;color:var(--ink-2)}
+.issue p{grid-column:1/-1;color:var(--muted);font-size:14.5px}
+.issue code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;background:var(--sand);padding:2px 6px;border-radius:6px;color:var(--ink)}
+.issue .fix{grid-column:1/-1;font-size:13.5px;font-weight:600;color:var(--teal)}
+.allgood{background:#E1F1EE;color:var(--teal);font-weight:700;border-radius:14px;padding:18px 22px}
+
+.table-wrap{margin-top:22px;overflow-x:auto;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:640px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+th{background:var(--sand);font-weight:700;position:sticky;top:0}
+td.chg{background:#FFF4D6;font-weight:600}
+td.chg::after{content:" ✓";color:var(--teal);font-weight:800}
+tr.dup td{text-decoration:line-through;color:#A9A291;background:#FBEFF2}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px}
+
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.kpi span{font-size:13px;color:var(--muted);font-weight:600}
+.kpi b{display:block;font-size:28px;font-weight:800;letter-spacing:-.02em;margin-top:4px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+.chart-card h3{font-size:15px;font-weight:800;margin-bottom:12px}
+.chart-box{position:relative;height:280px}
+.note{font-size:13.5px;color:var(--muted);margin-top:12px}
+
+.dl{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
+.lead-card{background:var(--ink);color:#fff;border-radius:28px;padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:44px;position:relative;overflow:hidden}
+.lead-card h2{color:#fff}
+.lead-card .lead{color:#B9C2DA}
+.lead-card ul{list-style:none;margin-top:20px;display:grid;gap:10px;color:#DCE2F0;font-size:15px}
+.lead-card li::before{content:"✓ ";color:var(--gold);font-weight:800}
+form{display:grid;gap:12px}
+label{font-size:13px;font-weight:700;color:#B9C2DA;display:grid;gap:6px}
+input,textarea{font-family:inherit;font-size:15px;padding:13px 15px;border-radius:12px;border:1.5px solid #34426A;background:#1B2A4A;color:#fff;outline:none}
+input:focus,textarea:focus{border-color:var(--gold)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-status{font-size:14.5px;font-weight:600;min-height:1em}
+.form-status.ok{color:#7FD8B0}
+.form-status.err{color:#F3A3B8}
+.form-status a{color:var(--gold);text-decoration:underline}
+.small{font-size:12.5px;color:#9AA6C4}
+
+.how{padding:20px 0 90px}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.how-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.how-item b{font-size:13px;color:var(--gold-deep);letter-spacing:.1em}
+.how-item h3{font-size:19px;font-weight:800;margin:8px 0 6px}
+.how-item p{color:var(--muted);font-size:15px}
+
+footer{padding:40px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot a{color:var(--gold-deep);font-weight:700}
+
+@media (max-width:900px){
+  .score-card,.lead-card{grid-template-columns:1fr;padding:30px 24px;gap:24px}
+  .charts,.how-grid{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  .nav-right a.plain{display:none}
+  .nav-right .btn{padding:10px 16px;font-size:14px}
+  .form-row{grid-template-columns:1fr}
+  .drop{padding:36px 18px}
+  .hero{padding:44px 0 28px}
+  .issue{grid-template-columns:1fr}
+}
+
+.ill-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:0 0 28px}
+.ill-step{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px 18px 20px}
+.ill-step .art{background:var(--sand);border-radius:14px;margin-bottom:14px}
+.ill-step svg{display:block;width:100%;height:auto}
+.ill-step b{font-size:12.5px;font-weight:800;letter-spacing:.1em;color:var(--gold-deep)}
+.ill-step h3{font-size:17px;font-weight:800;margin:4px 0 4px}
+.ill-step p{color:var(--muted);font-size:14.5px;line-height:1.5}
+@media (max-width:760px){.ill-steps{grid-template-columns:1fr}.ill-step{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;padding:14px}.ill-step h3{font-size:16px}.ill-step p{font-size:14px}.ill-step .art{margin:0}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="/" class="brand" aria-label="Rungkai Kusut home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#13203B"/><path d="M5 25 C 10 9, 17 29, 12 18 C 8 10, 21 8, 18 18 L 27 7" fill="none" stroke="#F2B544" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Rungkai Kusut<small>Data &amp; AI</small></span>
+    </a>
+    <div class="nav-right">
+      <a class="plain" href="/#free-tools">Free tools</a>
+      <a class="btn btn-dark" href="/#contact">Free health check</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Alat percuma · Free tool</span>
+    <h1>Data Kusut <span class="serif">Checker.</span></h1>
+    <p class="lead">How messy is your Excel? Drop in a sales list, customer list or report and see in seconds what's wrong: duplicates, blanks, inconsistent names, mixed date formats. Then download a cleaned copy.</p>
+    <div class="badges">
+      <span><b>🔒</b> Your file never leaves your computer</span>
+      <span><b>✓</b> Excel (.xlsx, .xls) &amp; CSV</span>
+      <span><b>✓</b> Free, no sign-up</span>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+<div class="ill-steps"><div class="ill-step"><div class="art"><svg viewBox="0 0 220 120" role="img" aria-label="Drop your Excel or CSV file" xmlns="http://www.w3.org/2000/svg"><rect x="70" y="74" width="80" height="34" rx="10" fill="none" stroke="#CFC6B5" stroke-width="2" stroke-dasharray="5 4"/><rect x="88" y="20" width="44" height="50" rx="6" fill="#fff" stroke="#E8E1D4" stroke-width="1.5"/><path d="M88 26a6 6 0 0 1 6-6h32a6 6 0 0 1 6 6v6h-44z" fill="#1E7A6C"/><rect x="94" y="40" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="40" width="13" height="4" rx="2" fill="#CFC6B5"/><rect x="94" y="49" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="49" width="13" height="4" rx="2" fill="#CFC6B5"/><rect x="94" y="58" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="58" width="13" height="4" rx="2" fill="#CFC6B5"/><rect x="94" y="67" width="17" height="4" rx="2" fill="#CFC6B5"/><rect x="112" y="67" width="13" height="4" rx="2" fill="#CFC6B5"/><circle cx="136" cy="32" r="13" fill="#F2B544"/><path d="M136 39v-14M130 31l6-6 6 6" fill="none" stroke="#13203B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt"><b>01</b><h3>Drop your file</h3><p>Any Excel or CSV: sales, customers, stock, claims.</p></div></div><div class="ill-step"><div class="art"><svg viewBox="0 0 220 120" role="img" aria-label="Messy cells highlighted under a magnifying glass" xmlns="http://www.w3.org/2000/svg"><rect x="37" y="15" width="116" height="91" rx="6" fill="#fff" stroke="#E8E1D4" stroke-width="1.5"/><rect x="41" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="63" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="85" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="107" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="129" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="41" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="63" y="36" width="20" height="15" rx="2" fill="#E46F92"/><rect x="85" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="107" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="129" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="41" y="53" width="20" height="15" rx="2" fill="#F2B544"/><rect x="63" y="53" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="85" y="53" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="107" y="53" width="20" height="15" rx="2" fill="#F2B544"/><rect x="129" y="53" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="41" y="70" width="20" height="15" rx="2" fill="#E46F92"/><rect x="63" y="70" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="85" y="70" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="107" y="70" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="129" y="70" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="41" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="63" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="85" y="87" width="20" height="15" rx="2" fill="#F2B544"/><rect x="107" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="129" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><circle cx="132" cy="58" r="20" fill="rgba(255,255,255,.55)" stroke="#13203B" stroke-width="4"/><path d="M146 72L162 88" stroke="#13203B" stroke-width="6" stroke-linecap="round"/></svg></div><div class="txt"><b>02</b><h3>We spot the mess</h3><p>Duplicates, blanks, mixed dates, names typed 5 ways.</p></div></div><div class="ill-step"><div class="art"><svg viewBox="0 0 220 120" role="img" aria-label="A clean table with a high score and a download button" xmlns="http://www.w3.org/2000/svg"><rect x="27" y="15" width="116" height="91" rx="6" fill="#fff" stroke="#E8E1D4" stroke-width="1.5"/><rect x="31" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="53" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="75" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="97" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="119" y="19" width="20" height="15" rx="2" fill="#13203B"/><rect x="31" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="53" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="75" y="36" width="20" height="15" rx="2" fill="#CDEBE4"/><rect x="97" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="119" y="36" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="31" y="53" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="53" y="53" width="20" height="15" rx="2" fill="#CDEBE4"/><rect x="75" y="53" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="97" y="53" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="119" y="53" width="20" height="15" rx="2" fill="#CDEBE4"/><rect x="31" y="70" width="20" height="15" rx="2" fill="#CDEBE4"/><rect x="53" y="70" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="75" y="70" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="97" y="70" width="20" height="15" rx="2" fill="#CDEBE4"/><rect x="119" y="70" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="31" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="53" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="75" y="87" width="20" height="15" rx="2" fill="#CDEBE4"/><rect x="97" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><rect x="119" y="87" width="20" height="15" rx="2" fill="#EFE9DD"/><circle cx="168" cy="44" r="24" fill="#13203B"/><text x="168" y="51" text-anchor="middle" font-family="Plus Jakarta Sans,sans-serif" font-size="19" font-weight="800" fill="#7FD8B0">92</text><circle cx="168" cy="92" r="13" fill="#F2B544"/><path d="M168 85v13M162 93l6 6 6-6" fill="none" stroke="#13203B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt"><b>03</b><h3>Get a clean copy</h3><p>A health score, fixes applied and a cleaned file to download.</p></div></div></div>
+  <div class="drop" id="drop">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></div>
+    <h3>Drop your Excel or CSV file here</h3>
+    <p>or choose a file. Don't have one handy? Try our messy sample.</p>
+    <div class="actions">
+      <button class="btn btn-dark" id="pickBtn" type="button">Choose file</button>
+      <button class="btn btn-ghost" id="sampleBtn" type="button">Try sample data</button>
+    </div>
+    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv,.txt">
+    <p class="fine">Checks the first sheet, up to 50,000 rows. Analysis runs entirely in your browser; nothing is uploaded or stored.</p>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<section id="results">
+  <div class="wrap">
+
+    <div class="block">
+      <div class="score-card">
+        <div class="gauge" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#2A3962" stroke-width="12"/><circle id="gaugeArc" cx="60" cy="60" r="52" fill="none" stroke="#F2B544" stroke-width="12" stroke-linecap="round" stroke-dasharray="0 327"/></svg>
+          <div class="num"><div><b id="scoreNum">0</b><small>/ 100</small></div></div>
+        </div>
+        <div>
+          <span class="eyebrow" id="fileName">Data health score</span>
+          <h2 id="scoreTitle">—</h2>
+          <p class="lead" id="scoreText"></p>
+          <div class="score-meta">
+            <div><b id="mRows">0</b><span>rows checked</span></div>
+            <div><b id="mCols">0</b><span>columns</span></div>
+            <div><b id="mIssues">0</b><span>cells with issues</span></div>
+            <div><b id="mFixed">0</b><span>auto-fixed for you</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <span class="eyebrow">Apa yang kusut</span>
+      <h2>What we found.</h2>
+      <p class="lead">Each issue is something that breaks formulas, pivot tables or reports, or makes the same customer look like three different ones.</p>
+      <div class="issues" id="issues"></div>
+    </div>
+
+    <div class="block">
+      <span class="eyebrow">Sebelum &amp; selepas</span>
+      <h2>Your data, cleaned.</h2>
+      <p class="lead">A preview of the first rows after automatic cleaning. Highlighted cells were fixed; crossed-out rows are duplicates that will be removed.</p>
+      <div class="table-wrap"><table id="preview"></table></div>
+      <div class="legend"><span><i style="background:#FFF4D6"></i>Fixed cell (hover to see original)</span><span><i style="background:#FBEFF2"></i>Duplicate row, removed</span></div>
+      <div class="dl">
+        <button class="btn btn-gold" id="dlXlsx" type="button">Download cleaned Excel →</button>
+        <button class="btn btn-ghost" id="dlCsv" type="button">Download as CSV</button>
+      </div>
+      <p class="note">The Excel download includes a second sheet listing every issue found. Always keep your original file.</p>
+    </div>
+
+    <div class="block" id="dashBlock">
+      <span class="eyebrow">Beri rupa</span>
+      <h2>Clean data becomes a dashboard.</h2>
+      <p class="lead">Built automatically from your cleaned file. Imagine this updating itself every morning, connected to your real systems.</p>
+      <div class="kpis" id="kpis"></div>
+      <div class="charts">
+        <div class="chart-card" id="barCard"><h3 id="barTitle">Top categories</h3><div class="chart-box"><canvas id="barChart"></canvas></div></div>
+        <div class="chart-card" id="lineCard"><h3 id="lineTitle">Trend by month</h3><div class="chart-box"><canvas id="lineChart"></canvas></div></div>
+      </div>
+      <p class="note" id="chartNote"></p>
+    </div>
+
+    <div class="block">
+      <div class="lead-card">
+        <div>
+          <span class="eyebrow">Jom rungkai</span>
+          <h2>Want this fixed properly?</h2>
+          <p class="lead">This tool cleans one file. We fix the source: one clean database, dashboards that update themselves, and digital forms so the mess doesn't come back.</p>
+          <ul>
+            <li>A personalised clean-up plan based on this result</li>
+            <li>Free 45-minute data health check with our team</li>
+            <li>Reply within one working day, in BM or English</li>
+          </ul>
+        </div>
+        <form id="leadForm">
+          <div class="form-row">
+            <label>Name<input name="name" required placeholder="Your name"></label>
+            <label>Company<input name="org" placeholder="Company name"></label>
+          </div>
+          <label>Email<input type="email" name="email" required placeholder="you@company.com"></label>
+          <label>Phone / WhatsApp (optional)<input name="phone" placeholder="012-345 6789"></label>
+          <label>What do you use this data for? (optional)<textarea name="msg" rows="3" placeholder="e.g. monthly sales report for 3 branches"></textarea></label>
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+          <button class="btn btn-gold" type="submit">Send me my clean-up plan →</button>
+          <p class="small">We only receive your score and issue summary, never your data.</p>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <span class="eyebrow">Cara ia berfungsi</span>
+    <h2>Private by design.</h2>
+    <div class="how-grid">
+      <div class="how-item"><b>01</b><h3>Runs in your browser</h3><p>Your file is read and checked on your own device. Nothing is uploaded to any server, so it's safe for customer and sales data (PDPA-friendly).</p></div>
+      <div class="how-item"><b>02</b><h3>Checks what breaks reports</h3><p>Duplicates, blanks and "N/A", extra spaces, the same name typed different ways, mixed date formats, numbers stored as text, messy phone numbers.</p></div>
+      <div class="how-item"><b>03</b><h3>Fixes the easy stuff</h3><p>Trims spaces, standardises names, dates (YYYY-MM-DD) and phone numbers (+60), converts "RM 1,250" to numbers and removes duplicate rows.</p></div>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:22px">
+      <a class="btn btn-ghost" href="/kos-kerja-manual/">Free tool: Kos Kerja Manual calculator →</a>
+      <a class="btn btn-ghost" href="/pdpa-scanner/">Free tool: PDPA Data Scanner →</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>© <span id="yr"></span> Rungkai Kusut · Data kusut, jadi keputusan jelas.</div>
+    <a href="/">← Back to rungkaikusut.com</a>
+  </div>
+</footer>
+
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="vendor/chart.umd.min.js"></script>
+<script>
+(() => {
+'use strict';
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const MAX_ROWS = 50000;
+const MISSING = new Set(['','n/a','na','-','--','null','nil','tiada','none','#n/a','?','#value!','#ref!']);
+const MONTHS = {jan:1,feb:2,mar:3,mac:3,apr:4,may:5,mei:5,jun:6,jul:7,aug:8,ogo:8,sep:9,oct:10,okt:10,nov:11,dec:12,dis:12};
+const NUM_RE = /^\s*(?:rm|myr)?\s*-?\s*(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?\s*$/i;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_HINT = /(phone|tel|telefon|mobile|hp|whatsapp|contact no|no\.? ?tel)/i;
+const AMOUNT_HINT = /(jumlah|amount|total|sales|jualan|harga|price|revenue|nilai|value|\brm\b|kos|cost)/i;
+const CAT_HINT = /(cawangan|branch|kategori|category|produk|product|region|negeri|state|status|jenis|type|outlet|lokasi|location|department|jabatan)/i;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = n => Number(n).toLocaleString('en-MY');
+const fmtMoney = n => Number(n).toLocaleString('en-MY', {maximumFractionDigits: 2});
+const isMissing = v => v === null || v === undefined || (typeof v === 'string' && MISSING.has(v.trim().toLowerCase()));
+const collapse = s => s.trim().replace(/\s+/g, ' ');
+const pad = n => String(n).padStart(2, '0');
+const iso = (y, m, d) => `${y}-${pad(m)}-${pad(d)}`;
+const show = v => (v === null || v === undefined) ? '' : (v instanceof Date ? iso(v.getFullYear(), v.getMonth() + 1, v.getDate()) : String(v));
+
+function validDate(y, m, d) {
+  if (y < 1900 || y > 2100 || m < 1 || m > 12 || d < 1 || d > 31) return false;
+  const dt = new Date(y, m - 1, d);
+  return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d;
+}
+function parseDateStr(raw) {
+  let s = collapse(String(raw)).replace(/[T ]\d{1,2}:\d{2}(:\d{2})?(\.\d+)?Z?$/i, '');
+  let m;
+  if ((m = s.match(/^(\d{4})([-\/.])(\d{1,2})\2(\d{1,2})$/))) {
+    const y = +m[1], mo = +m[3], d = +m[4];
+    return validDate(y, mo, d) ? {v: iso(y, mo, d), f: 'YYYY' + m[2] + 'MM' + m[2] + 'DD'} : null;
+  }
+  if ((m = s.match(/^(\d{1,2})([-\/.])(\d{1,2})\2(\d{2}|\d{4})$/))) {
+    let a = +m[1], b = +m[3], y = +m[4]; if (y < 100) y += 2000;
+    const sep = m[2];
+    if (a > 12 && b <= 12) return validDate(y, b, a) ? {v: iso(y, b, a), f: 'DD' + sep + 'MM' + sep + 'YYYY'} : null;
+    if (b > 12 && a <= 12) return validDate(y, a, b) ? {v: iso(y, a, b), f: 'MM' + sep + 'DD' + sep + 'YYYY (US)'} : null;
+    return validDate(y, b, a) ? {v: iso(y, b, a), f: 'DD' + sep + 'MM' + sep + 'YYYY'} : null;
+  }
+  if ((m = s.match(/^(\d{1,2})[\s\-]([A-Za-z]{3,9})[\s\-,]+(\d{2}|\d{4})$/))) {
+    const mo = MONTHS[m[2].slice(0, 3).toLowerCase()]; let y = +m[3]; if (y < 100) y += 2000;
+    return mo && validDate(y, mo, +m[1]) ? {v: iso(y, mo, +m[1]), f: 'DD Mon YYYY'} : null;
+  }
+  if ((m = s.match(/^([A-Za-z]{3,9})\s(\d{1,2}),?\s(\d{4})$/))) {
+    const mo = MONTHS[m[1].slice(0, 3).toLowerCase()];
+    return mo && validDate(+m[3], mo, +m[2]) ? {v: iso(+m[3], mo, +m[2]), f: 'Mon DD, YYYY'} : null;
+  }
+  return null;
+}
+function parseDateAny(v) {
+  if (v instanceof Date && !isNaN(v)) return {v: iso(v.getFullYear(), v.getMonth() + 1, v.getDate()), f: 'Excel date'};
+  if (typeof v === 'number' && v > 20000 && v < 80000 && window.XLSX) {
+    const p = XLSX.SSF.parse_date_code(v);
+    if (p && validDate(p.y, p.m, p.d)) return {v: iso(p.y, p.m, p.d), f: 'Excel serial number'};
+  }
+  if (typeof v === 'string') return parseDateStr(v);
+  return null;
+}
+function parseNum(v) {
+  if (typeof v === 'number' && isFinite(v)) return v;
+  if (typeof v !== 'string' || !NUM_RE.test(v)) return null;
+  const n = parseFloat(v.replace(/rm|myr|,|\s/gi, ''));
+  return isFinite(n) ? n : null;
+}
+function phoneDigits(v, name) {
+  let d = String(v).replace(/[^\d+]/g, '');
+  if (typeof v === 'number') d = String(Math.round(v));
+  d = d.replace(/^\+/, '');
+  if (/^60\d{8,10}$/.test(d)) return '+' + d;
+  if (/^0\d{8,10}$/.test(d)) return '+6' + d;
+  if (/^1\d{7,9}$/.test(d) && (typeof v === 'number' || PHONE_HINT.test(name))) return '+60' + d;
+  return null;
+}
+const shape = s => String(s).trim().replace(/\d/g, '9');
+
+// ---------- reading files ----------
+async function readFile(file) {
+  const name = file.name.toLowerCase();
+  let wb;
+  if (name.endsWith('.csv') || name.endsWith('.txt')) {
+    const text = await file.text();
+    wb = XLSX.read(text, {type: 'string', raw: true});
+  } else {
+    const buf = await file.arrayBuffer();
+    wb = XLSX.read(buf, {type: 'array', cellDates: true});
+  }
+  const ws = wb.Sheets[wb.SheetNames[0]];
+  const aoa = XLSX.utils.sheet_to_json(ws, {header: 1, defval: null, raw: true, blankrows: true});
+  return {aoa, sheet: wb.SheetNames[0]};
+}
+
+function toTable(aoa) {
+  let hIdx = 0;
+  for (let i = 0; i < Math.min(10, aoa.length); i++) {
+    const r = aoa[i] || [];
+    const filled = r.filter(v => !isMissing(v)).length;
+    const width = Math.max(...aoa.slice(0, 20).map(x => (x || []).length), 1);
+    if (filled >= Math.max(2, Math.ceil(width * 0.5))) { hIdx = i; break; }
+  }
+  const head = aoa[hIdx] || [];
+  let body = aoa.slice(hIdx + 1);
+  const width = Math.max(head.length, ...body.slice(0, 200).map(r => (r || []).length));
+  const seen = {};
+  const headers = [];
+  for (let c = 0; c < width; c++) {
+    let h = head[c] === null || head[c] === undefined || String(head[c]).trim() === '' ? `Column ${c + 1}` : collapse(show(head[c]));
+    if (seen[h]) { seen[h]++; h = `${h} (${seen[h]})`; } else seen[h] = 1;
+    headers.push(h);
+  }
+  let emptyRows = 0;
+  const rows = [];
+  for (const r of body) {
+    const row = Array.from({length: width}, (_, c) => (r && r[c] !== undefined) ? r[c] : null);
+    if (row.every(isMissing)) { emptyRows++; continue; }
+    rows.push(row);
+  }
+  // trailing empty rows are not an issue, only gaps inside the data
+  let trailing = 0;
+  for (let i = body.length - 1; i >= 0; i--) { const r = body[i]; if (!r || r.every(isMissing)) trailing++; else break; }
+  emptyRows = Math.max(0, emptyRows - trailing);
+  // drop fully empty columns
+  const keep = headers.map((h, c) => rows.some(r => !isMissing(r[c])));
+  return {
+    headers: headers.filter((_, c) => keep[c]),
+    rows: rows.map(r => r.filter((_, c) => keep[c])),
+    emptyRows,
+    droppedCols: keep.filter(k => !k).length
+  };
+}
+
+// ---------- analysis ----------
+function detectKind(name, vals) {
+  const nm = vals.filter(v => !isMissing(v));
+  if (!nm.length) return 'empty';
+  const n = nm.length;
+  const phoneLike = nm.filter(v => phoneDigits(v, name) && (typeof v === 'number' || /^\s*(\+?6?0|0)[\d\s\-()]{7,14}\s*$/.test(String(v)))).length;
+  if (PHONE_HINT.test(name) && phoneLike / n >= 0.5) return 'phone';
+  if (!PHONE_HINT.test(name) && phoneLike / n >= 0.7 && nm.filter(v => typeof v === 'string' && /^\s*(\+?60|0)/.test(v)).length / n >= 0.6) return 'phone';
+  if (nm.filter(v => typeof v === 'string' && v.includes('@')).length / n >= 0.6) return 'email';
+  const dates = nm.filter(v => parseDateAny(v) && !(typeof v === 'number' && !/(date|tarikh|tkh|day|hari|bulan|month)/i.test(name))).length;
+  if (dates / n >= 0.6) return 'date';
+  const nums = nm.filter(v => parseNum(v) !== null).length;
+  if (nums / n >= 0.6) return 'number';
+  return 'text';
+}
+
+function analyse(table) {
+  const {headers, rows} = table;
+  const nR = rows.length, nC = headers.length;
+  const cols = headers.map((h, c) => ({name: h, idx: c, kind: detectKind(h, rows.map(r => r[c]))}));
+  const cleaned = rows.map(r => r.slice());
+  const changed = rows.map(() => new Array(nC).fill(false));
+  const issues = [];
+  let missing = 0, ws = 0, variantCells = 0, typeCells = 0, mixedDateCols = 0, fixed = 0;
+  const missingByCol = [], missingTokenCols = [];
+  const wsCols = new Set();
+
+  const mark = (r, c, nv) => {
+    const ov = rows[r][c];
+    if (show(ov) !== show(nv)) { changed[r][c] = true; fixed++; }
+    cleaned[r][c] = nv;
+  };
+
+  cols.forEach(col => {
+    const c = col.idx;
+    let miss = 0, tokens = 0;
+    // pass 1: missing + whitespace, base clean
+    for (let r = 0; r < nR; r++) {
+      const v = rows[r][c];
+      if (isMissing(v)) {
+        miss++;
+        if (typeof v === 'string' && v.trim() !== '') tokens++;
+        mark(r, c, null);
+        continue;
+      }
+      if (typeof v === 'string' && v !== collapse(v)) { ws++; wsCols.add(col.name); }
+      cleaned[r][c] = typeof v === 'string' ? collapse(v) : v;
+    }
+    missing += miss;
+    if (miss) missingByCol.push([col.name, miss]);
+    if (tokens) missingTokenCols.push([col.name, tokens]);
+
+    if (col.kind === 'number') {
+      let asText = 0, junk = 0; const junkEx = [], textEx = [];
+      for (let r = 0; r < nR; r++) {
+        const v = cleaned[r][c]; if (v === null) continue;
+        const n = parseNum(v);
+        if (n === null) { junk++; if (junkEx.length < 3 && !junkEx.includes(v)) junkEx.push(v); continue; }
+        if (typeof v === 'string' && (table.source !== 'csv' || !/^-?\d+(\.\d+)?$/.test(v))) { asText++; if (textEx.length < 3 && !textEx.includes(v)) textEx.push(v); }
+        mark(r, c, n);
+      }
+      if (asText) { typeCells += asText; issues.push({sev: 'med', col: col.name, count: asText, title: `Numbers stored as text in “${col.name}”`, detail: table.source === 'csv' ? `Values like ${textEx.map(e => `<code>${esc(e)}</code>`).join(' ')} include RM, commas or spaces, so Excel and Power BI import them as text and SUM skips them.` : `Values like ${textEx.map(e => `<code>${esc(e)}</code>`).join(' ')} look like numbers but Excel treats them as text, so SUM and pivot tables silently skip them.`, fix: 'Converted to real numbers (RM and commas removed).'}); }
+      if (junk) { typeCells += junk; issues.push({sev: 'high', col: col.name, count: junk, title: `Non-numbers in number column “${col.name}”`, detail: `Found ${junkEx.map(e => `<code>${esc(e)}</code>`).join(' ')} in a column that should only contain numbers.`, fix: 'Left as-is for you to review.'}); }
+    }
+
+    if (col.kind === 'date') {
+      const fmts = {}; let bad = 0; const badEx = [], us = [];
+      for (let r = 0; r < nR; r++) {
+        const v = cleaned[r][c]; if (v === null) continue;
+        const p = parseDateAny(v);
+        if (!p) { bad++; if (badEx.length < 3) badEx.push(v); continue; }
+        fmts[p.f] = (fmts[p.f] || 0) + 1;
+        if (p.f.includes('US') && us.length < 2) us.push(v);
+        mark(r, c, p.v);
+      }
+      const keys = Object.keys(fmts).sort((a, b) => fmts[b] - fmts[a]);
+      if (keys.length > 1) {
+        mixedDateCols++;
+        const off = Object.values(fmts).reduce((a, b) => a + b, 0) - fmts[keys[0]];
+        typeCells += off;
+        issues.push({sev: 'high', col: col.name, count: off, title: `${keys.length} different date formats in “${col.name}”`, detail: `Mixed formats: ${keys.slice(0, 4).map(k => `<code>${esc(k)}</code> ×${fmts[k]}`).join(', ')}. Sorting and monthly reports will be wrong.${us.length ? ' Some dates look US-style (month first), e.g. <code>' + esc(show(us[0])) + '</code>.' : ''}`, fix: 'All dates standardised to YYYY-MM-DD.'});
+      }
+      if (bad) { typeCells += bad; issues.push({sev: 'high', col: col.name, count: bad, title: `Unreadable dates in “${col.name}”`, detail: `Couldn't read ${badEx.map(e => `<code>${esc(show(e))}</code>`).join(' ')} as dates.`, fix: 'Left as-is for you to review.'}); }
+    }
+
+    if (col.kind === 'phone') {
+      const shapes = {}; let bad = 0;
+      for (let r = 0; r < nR; r++) {
+        const v = cleaned[r][c]; if (v === null) continue;
+        const sh = shape(show(v)); if (!shapes[sh]) shapes[sh] = show(v);
+        const p = phoneDigits(v, col.name);
+        if (p) mark(r, c, p); else bad++;
+      }
+      const n = Object.keys(shapes).length;
+      if (n > 1) { const cnt = nR - miss - bad; issues.push({sev: 'low', col: col.name, count: n, unit: 'formats', title: `Phone numbers typed ${n} different ways in “${col.name}”`, detail: `e.g. ${Object.values(shapes).slice(0, 3).map(s => `<code>${esc(s)}</code>`).join(' ')}. Hard to search, dedupe or use for WhatsApp/SMS blasts.`, fix: `${fmt(cnt)} numbers standardised to +60 format.`}); typeCells += Math.min(cnt, n); }
+      if (bad) issues.push({sev: 'med', col: col.name, count: bad, title: `Invalid phone numbers in “${col.name}”`, detail: 'Too short, too long or not Malaysian format.', fix: 'Left as-is for you to review.'});
+    }
+
+    if (col.kind === 'email') {
+      let bad = 0, norm = 0; const badEx = [];
+      for (let r = 0; r < nR; r++) {
+        const v = cleaned[r][c]; if (v === null) continue;
+        const e = String(v).replace(/\s+/g, '').toLowerCase();
+        if (!EMAIL_RE.test(e)) { bad++; if (badEx.length < 2) badEx.push(v); continue; }
+        if (e !== String(rows[r][c])) norm++;
+        mark(r, c, e);
+      }
+      if (bad) { typeCells += bad; issues.push({sev: 'med', col: col.name, count: bad, title: `Invalid emails in “${col.name}”`, detail: `e.g. ${badEx.map(e => `<code>${esc(e)}</code>`).join(' ')}`, fix: 'Left as-is for you to review.'}); }
+      if (norm) issues.push({sev: 'low', col: col.name, count: norm, title: `Emails with capitals or spaces in “${col.name}”`, detail: 'The same email typed differently counts as two contacts.', fix: 'Lower-cased and trimmed.'});
+    }
+
+    if (col.kind === 'text') {
+      const groups = new Map();
+      for (let r = 0; r < nR; r++) {
+        const v = cleaned[r][c]; if (v === null) continue;
+        const s = String(v);
+        const key = s.toLowerCase().replace(/[.,]/g, '').replace(/\s+/g, ' ').trim();
+        if (!groups.has(key)) groups.set(key, new Map());
+        const g = groups.get(key); g.set(s, (g.get(s) || 0) + 1);
+      }
+      let cells = 0; const ex = [];
+      const canon = new Map();
+      groups.forEach((g, key) => {
+        if (g.size < 2) return;
+        const mixedCase = s => /[a-z]/.test(s) && /[A-Z]/.test(s) ? 1 : 0;
+        const sorted = [...g.entries()].sort((a, b) => mixedCase(b[0]) - mixedCase(a[0]) || b[1] - a[1]);
+        canon.set(key, sorted[0][0]);
+        cells += sorted.slice(1).reduce((a, x) => a + x[1], 0);
+        if (ex.length < 2) ex.push(sorted.slice(0, 3).map(x => x[0]));
+      });
+      if (cells) {
+        for (let r = 0; r < nR; r++) {
+          const v = cleaned[r][c]; if (v === null) continue;
+          const key = String(v).toLowerCase().replace(/[.,]/g, '').replace(/\s+/g, ' ').trim();
+          if (canon.has(key)) mark(r, c, canon.get(key));
+        }
+        variantCells += cells;
+        issues.push({sev: 'high', col: col.name, count: cells, title: `Same value typed different ways in “${col.name}”`, detail: ex.map(g => g.map(x => `<code>${esc(x)}</code>`).join(' = ')).join('<br>') + '<br>Reports will split one branch or customer into several.', fix: 'Standardised to the most common spelling.'});
+      }
+    }
+    // whitespace-only changes still count as fixes
+    for (let r = 0; r < nR; r++) if (!changed[r][c] && show(rows[r][c]) !== show(cleaned[r][c])) { changed[r][c] = true; fixed++; }
+  });
+
+  // duplicates (after cleaning)
+  const seen = new Set(); const dupRows = new Set();
+  cleaned.forEach((r, i) => {
+    const k = JSON.stringify(r.map(v => v === null ? '' : String(v).toLowerCase()));
+    if (seen.has(k)) dupRows.add(i); else seen.add(k);
+  });
+  const dups = dupRows.size;
+
+  if (dups) issues.unshift({sev: 'high', count: dups, title: 'Duplicate rows', detail: `${fmt(dups)} ${dups === 1 ? 'row is an exact copy' : 'rows are exact copies'} of another row (after cleaning). Totals and customer counts are inflated.`, fix: 'Duplicates removed in the cleaned file.'});
+  if (missing) {
+    const top = missingByCol.sort((a, b) => b[1] - a[1]).slice(0, 3);
+    issues.push({sev: missing / (nR * nC) > 0.1 ? 'high' : 'med', count: missing, title: 'Blank or “N/A” cells', detail: `Most blanks in ${top.map(([n, k]) => `<code>${esc(n)}</code> (${fmt(k)})`).join(', ')}.${missingTokenCols.length ? ' Placeholders like “N/A”, “-” or “tiada” were found too.' : ''}`, fix: missingTokenCols.length ? 'Placeholders turned into true blanks so formulas treat them consistently.' : 'Kept blank; worth filling in at the source.'});
+  }
+  if (ws) issues.push({sev: 'low', count: ws, title: 'Extra spaces', detail: `Leading, trailing or double spaces in ${[...wsCols].slice(0, 3).map(n => `<code>${esc(n)}</code>`).join(', ')}. <code>"Klang "</code> and <code>"Klang"</code> don't match in lookups.`, fix: 'Spaces trimmed.'});
+  if (table.emptyRows) issues.push({sev: 'low', count: table.emptyRows, title: 'Empty rows inside the data', detail: 'Blank rows break filters, sorting and pivot table ranges.', fix: 'Removed.'});
+
+  const cells = Math.max(1, nR * nC);
+  const pct = x => x / cells * 100;
+  let score = 100
+    - Math.min(25, pct(missing) * 0.8)
+    - Math.min(20, dups / Math.max(1, nR) * 150)
+    - Math.min(10, pct(ws) * 1.5)
+    - Math.min(20, pct(variantCells) * 2)
+    - Math.min(15, pct(typeCells) * 1.5)
+    - Math.min(10, mixedDateCols * 5)
+    - (table.emptyRows ? 3 : 0);
+  score = Math.max(0, Math.min(100, Math.round(score)));
+
+  const order = {high: 0, med: 1, low: 2};
+  issues.sort((a, b) => order[a.sev] - order[b.sev] || b.count - a.count);
+  const issueCells = missing + ws + variantCells + typeCells + dups * nC;
+
+  return {cols, cleaned, changed, dupRows, issues, score, nR, nC, fixed: fixed + dups, issueCells, dups};
+}
+
+// ---------- rendering ----------
+let state = null;
+const charts = [];
+
+function render(table, res, label) {
+  state = {table, res, label};
+  $('results').classList.add('show');
+  $('fileName').textContent = label;
+  // score
+  const s = res.score;
+  const arc = 327 * s / 100;
+  const color = s >= 85 ? '#7FD8B0' : s >= 60 ? '#F2B544' : '#E46F92';
+  $('gaugeArc').setAttribute('stroke', color);
+  animateNum($('scoreNum'), s);
+  setTimeout(() => $('gaugeArc').setAttribute('stroke-dasharray', `${arc} 327`), 30);
+  $('gaugeArc').style.transition = 'stroke-dasharray 1s ease';
+  const [title, text] = s >= 85
+    ? ['Kemas! Your data is in good shape.', 'Only minor issues. A dashboard on top of this would work well today.']
+    : s >= 60
+      ? ['Sedikit kusut. Fixable, but it is costing you.', 'These issues quietly break totals and reports. Most can be fixed automatically, and the rest at the source.']
+      : ['Sangat kusut. Your reports are likely wrong.', 'Duplicates, mixed formats and inconsistent names mean totals, customer counts and monthly trends can\'t be trusted yet.'];
+  $('scoreTitle').textContent = title;
+  $('scoreText').textContent = text;
+  $('mRows').textContent = fmt(res.nR);
+  $('mCols').textContent = fmt(res.nC);
+  $('mIssues').textContent = fmt(Math.min(res.issueCells, res.nR * res.nC));
+  $('mFixed').textContent = fmt(res.fixed);
+
+  // issues
+  $('issues').innerHTML = res.issues.length ? res.issues.map(i => `
+    <div class="issue ${i.sev}">
+      <h3>${esc(i.title)}</h3>
+      <span class="cnt">${fmt(i.count)} ${i.unit || (i.count === 1 ? (i.title === 'Duplicate rows' || i.title.startsWith('Empty') ? 'row' : 'cell') : (i.title === 'Duplicate rows' || i.title.startsWith('Empty') ? 'rows' : 'cells'))}</span>
+      <p>${i.detail}</p>
+      <div class="fix">→ ${esc(i.fix)}</div>
+    </div>`).join('') : '<div class="allgood">No issues found. This file is clean and ready for a dashboard.</div>';
+
+  // preview
+  const n = Math.min(12, res.nR);
+  let idxs = [...Array(n).keys()];
+  const firstDup = [...res.dupRows][0];
+  if (firstDup !== undefined && firstDup >= n) idxs = idxs.slice(0, n - 1).concat(firstDup);
+  let html = '<thead><tr>' + table.headers.map(h => `<th>${esc(h)}</th>`).join('') + '</tr></thead><tbody>';
+  idxs.forEach(i => {
+    html += `<tr class="${res.dupRows.has(i) ? 'dup' : ''}">` + res.cleaned[i].map((v, c) => {
+      const ch = res.changed[i][c] && !res.dupRows.has(i);
+      const orig = show(table.rows[i][c]);
+      return `<td class="${ch ? 'chg' : ''}"${ch ? ` title="Original: ${esc(orig === '' ? '(blank)' : orig)}"` : ''}>${esc(show(v))}</td>`;
+    }).join('') + '</tr>';
+  });
+  $('preview').innerHTML = html + '</tbody>';
+
+  renderDashboard(table, res);
+  setTimeout(() => $('results').scrollIntoView({behavior: 'smooth', block: 'start'}), 120);
+}
+
+function animateNum(el, to) {
+  const t0 = performance.now();
+  const step = t => { const p = Math.min(1, (t - t0) / 900); el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+
+function renderDashboard(table, res) {
+  charts.forEach(c => c.destroy()); charts.length = 0;
+  const rows = res.cleaned.filter((_, i) => !res.dupRows.has(i));
+  const pick = (kind, hint) => res.cols.filter(c => c.kind === kind).sort((a, b) => (hint.test(b.name) ? 1 : 0) - (hint.test(a.name) ? 1 : 0))[0];
+  const num = pick('number', AMOUNT_HINT);
+  const date = pick('date', /(date|tarikh|tkh)/i);
+  const catCands = res.cols.filter(c => c.kind === 'text').map(c => {
+    const vals = rows.map(r => r[c.idx]).filter(v => v !== null);
+    const u = new Set(vals.map(String)).size;
+    return {c, u, ok: u >= 2 && u <= 40 && u / Math.max(1, vals.length) <= 0.5};
+  }).filter(x => x.ok).sort((a, b) => (CAT_HINT.test(b.c.name) ? 1 : 0) - (CAT_HINT.test(a.c.name) ? 1 : 0) || a.u - b.u);
+  const cat = catCands[0] && catCands[0].c;
+  const val = r => num ? (typeof r[num.idx] === 'number' ? r[num.idx] : 0) : 1;
+
+  const total = num ? rows.reduce((a, r) => a + val(r), 0) : rows.length;
+  const kp = [
+    ['Clean rows', fmt(rows.length)],
+    [num ? `Total ${num.name}` : 'Records', num ? fmtMoney(total) : fmt(total)],
+    cat ? [`Unique ${cat.name}`, fmt(new Set(rows.map(r => r[cat.idx]).filter(v => v !== null)).size)]
+        : date ? ['Date range', (() => { const d = rows.map(r => r[date.idx]).filter(v => typeof v === 'string' && /^\d{4}-/.test(v)).sort(); return d.length ? `${d[0].slice(0, 7)} → ${d[d.length - 1].slice(0, 7)}` : '—'; })()]
+        : ['Columns', fmt(res.nC)]
+  ];
+  $('kpis').innerHTML = kp.map(([k, v]) => `<div class="kpi"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
+
+  const ink = '#13203B', gold = '#F2B544', teal = '#1E7A6C', grid = '#EFE9DD';
+  Chart.defaults.font.family = '"Plus Jakarta Sans", system-ui, sans-serif';
+  Chart.defaults.color = '#5D6782';
+
+  if (cat) {
+    const agg = new Map();
+    rows.forEach(r => { const k = r[cat.idx]; if (k === null) return; agg.set(String(k), (agg.get(String(k)) || 0) + val(r)); });
+    const top = [...agg.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10);
+    $('barTitle').textContent = `${num ? num.name : 'Rows'} by ${cat.name}${agg.size > 10 ? ' (top 10)' : ''}`;
+    $('barCard').style.display = '';
+    charts.push(new Chart($('barChart'), {type: 'bar', data: {labels: top.map(x => x[0].length > 22 ? x[0].slice(0, 21) + '…' : x[0]), datasets: [{data: top.map(x => x[1]), backgroundColor: top.map((_, i) => i === 0 ? gold : ink), borderRadius: 6}]},
+      options: {indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => fmtMoney(c.parsed.x)}}}, scales: {x: {grid: {color: grid}, ticks: {callback: v => fmtMoney(v)}}, y: {grid: {display: false}}}}}));
+  } else $('barCard').style.display = 'none';
+
+  if (date) {
+    const agg = new Map();
+    rows.forEach(r => { const d = r[date.idx]; if (typeof d !== 'string' || !/^\d{4}-\d{2}/.test(d)) return; const k = d.slice(0, 7); agg.set(k, (agg.get(k) || 0) + val(r)); });
+    const keys = [...agg.keys()].sort();
+    if (keys.length >= 2) {
+      $('lineTitle').textContent = `${num ? num.name : 'Rows'} by month`;
+      $('lineCard').style.display = '';
+      charts.push(new Chart($('lineChart'), {type: 'line', data: {labels: keys, datasets: [{data: keys.map(k => agg.get(k)), borderColor: teal, backgroundColor: 'rgba(30,122,108,.12)', fill: true, tension: .3, pointRadius: 4, pointBackgroundColor: teal}]},
+        options: {responsive: true, maintainAspectRatio: false, plugins: {legend: {display: false}, tooltip: {callbacks: {label: c => fmtMoney(c.parsed.y)}}}, scales: {y: {grid: {color: grid}, beginAtZero: true, ticks: {callback: v => fmtMoney(v)}}, x: {grid: {display: false}}}}}));
+    } else $('lineCard').style.display = 'none';
+  } else $('lineCard').style.display = 'none';
+
+  const shown = (cat ? 1 : 0) + ($('lineCard').style.display === 'none' ? 0 : 1);
+  document.querySelector('.charts').style.gridTemplateColumns = shown === 1 && innerWidth > 900 ? '1fr' : '';
+  $('chartNote').textContent = shown ? (date && $('lineCard').style.display !== 'none' ? 'Before cleaning, mixed date formats would have scattered these totals across the wrong months.' : 'Before cleaning, inconsistent spellings would have split these totals across duplicate categories.') : 'We couldn\'t find a category or date column to chart automatically, but a custom dashboard can be built around any data.';
+  $('dashBlock').style.display = '';
+}
+
+// ---------- downloads ----------
+function cleanedAoa() {
+  const {table, res} = state;
+  return [table.headers].concat(res.cleaned.filter((_, i) => !res.dupRows.has(i)));
+}
+function baseName() { return (state.label || 'data').replace(/\.[^.]+$/, '').replace(/[^\w\- ]+/g, '').trim() || 'data'; }
+$('dlXlsx').onclick = () => {
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(cleanedAoa()), 'Cleaned data');
+  const rep = [['Rungkai Kusut: Data Kusut Checker report'], [`File: ${state.label}`], [`Health score: ${state.res.score}/100`], [`Rows checked: ${state.res.nR}`, `Duplicates removed: ${state.res.dups}`], [], ['Severity', 'Issue', 'Count', 'What we did']]
+    .concat(state.res.issues.map(i => [i.sev === 'high' ? 'High' : i.sev === 'med' ? 'Medium' : 'Low', i.title, i.count, i.fix]))
+    .concat([[], ['Want this fixed at the source? Book a free health check: https://rungkaikusut.com/#contact']]);
+  const ws = XLSX.utils.aoa_to_sheet(rep); ws['!cols'] = [{wch: 10}, {wch: 60}, {wch: 8}, {wch: 50}];
+  XLSX.utils.book_append_sheet(wb, ws, 'Rungkai report');
+  XLSX.writeFile(wb, `${baseName()}-cleaned.xlsx`);
+};
+$('dlCsv').onclick = () => {
+  const csv = XLSX.utils.sheet_to_csv(XLSX.utils.aoa_to_sheet(cleanedAoa()));
+  const blob = new Blob(['﻿' + csv], {type: 'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${baseName()}-cleaned.csv`;
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+};
+
+// ---------- input ----------
+const status = (msg, err) => { $('status').textContent = msg; $('status').className = 'status' + (err ? ' err' : ''); };
+async function handleFile(file) {
+  if (!file) return;
+  if (!/\.(xlsx|xls|csv|txt)$/i.test(file.name)) return status('Please choose an Excel (.xlsx, .xls) or CSV file.', true);
+  if (file.size > 30 * 1024 * 1024) return status('That file is over 30 MB. Try saving just the sheet you want to check.', true);
+  status('Reading your file…');
+  try {
+    const {aoa} = await readFile(file);
+    run(aoa, file.name, /\.(csv|txt)$/i.test(file.name) ? 'csv' : 'xlsx');
+  } catch (e) {
+    console.error(e);
+    status('Sorry, we couldn\'t read that file. If it\'s password-protected, save an unprotected copy and try again.', true);
+  }
+}
+function run(aoa, label, source) {
+  const table = toTable(aoa);
+  table.source = source || 'xlsx';
+  if (!table.rows.length || table.headers.length < 1) return status('We couldn\'t find any data rows in the first sheet.', true);
+  let note = '';
+  if (table.rows.length > MAX_ROWS) { table.rows = table.rows.slice(0, MAX_ROWS); note = ` (first ${fmt(MAX_ROWS)} rows checked)`; }
+  status('Checking…');
+  setTimeout(() => {
+    const res = analyse(table);
+    render(table, res, label);
+    status(`Done: ${fmt(res.nR)} rows checked${note}.`);
+  }, 20);
+}
+
+const drop = $('drop');
+$('pickBtn').onclick = () => $('fileInput').click();
+$('fileInput').onchange = e => { handleFile(e.target.files[0]); e.target.value = ''; };
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => handleFile(e.dataTransfer.files[0]));
+$('sampleBtn').onclick = () => run(sampleData(), 'Sample: jualan-cawangan.xlsx');
+
+// ---------- sample data ----------
+function sampleData() {
+  let seed = 7;
+  const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const pick = a => a[Math.floor(rnd() * a.length)];
+  const branches = ['Shah Alam', 'Shah Alam', 'shah alam', 'SHAH ALAM ', 'Petaling Jaya', 'Petaling Jaya', 'petaling jaya', 'Klang', 'Klang', 'KLANG', 'Kajang', 'Kajang '];
+  const cust = [['Kedai Runcit Aminah Sdn Bhd', 'Kedai Runcit Aminah Sdn. Bhd.', 'KEDAI RUNCIT AMINAH SDN BHD'], ['Syarikat Maju Jaya Enterprise', 'Syarikat  Maju Jaya Enterprise'], ['Restoran Selera Kita', 'restoran selera kita'], ['Klinik Sihat Sentiasa'], ['Tan Brothers Trading', 'TAN BROTHERS TRADING']];
+  const phones = ['0123456789', '0137654321', '0196543210', '0172345678', '0148889999'];
+  const products = [['Beras 10kg', 32], ['Minyak Masak 5L', 29], ['Gula 1kg', 3], ['Tepung Gandum 1kg', 3], ['Susu Pekat', 4]];
+  const bm = ['Jan', 'Feb', 'Mac', 'Apr', 'Mei', 'Jun', 'Jul', 'Ogos', 'Sep', 'Okt', 'Nov', 'Dis'];
+  const rows = [['Tarikh', 'Cawangan', 'Pelanggan', 'Produk', 'Kuantiti', 'Jumlah (RM)', 'Telefon', 'Email']];
+  for (let i = 0; i < 140; i++) {
+    const m = 1 + Math.floor(rnd() * 9), d = 1 + Math.floor(rnd() * 28), y = 2026;
+    const f = rnd();
+    const date = rnd() < 0.03 ? '' : f < 0.4 ? `${pad(d)}/${pad(m)}/${y}` : f < 0.65 ? `${y}-${pad(m)}-${pad(d)}` : f < 0.85 ? `${d}-${pad(m)}-${y}` : `${d} ${bm[m - 1]} ${y}`;
+    const ci = Math.floor(rnd() * cust.length);
+    const [prod, price] = pick(products);
+    const qty = 5 + Math.floor(rnd() * 60);
+    const amt = qty * price;
+    const af = rnd();
+    const amount = af < 0.02 ? 'N/A' : af < 0.35 ? `RM ${amt.toLocaleString('en-MY', {minimumFractionDigits: 2})}` : af < 0.55 ? String(amt) : amt;
+    const q = rnd() < 0.1 ? `${qty} ` : rnd() < 0.03 ? '-' : qty;
+    const p = phones[ci];
+    const pf = rnd();
+    const phone = pf < 0.3 ? p : pf < 0.55 ? `${p.slice(0, 3)}-${p.slice(3, 6)} ${p.slice(6)}` : pf < 0.8 ? `+6${p}` : `6${p.slice(0, 3)}-${p.slice(3)}`;
+    const base = cust[ci][0].toLowerCase().replace(/[^a-z]/g, '').slice(0, 12) + '@gmail.com';
+    const ef = rnd();
+    const email = ef < 0.08 ? '' : ef < 0.2 ? base.toUpperCase() : ef < 0.28 ? ' ' + base : base;
+    rows.push([date, pick(branches), pick(cust[ci]), prod, q, amount, phone, email]);
+    if (i === 40 || i === 90) rows.push([null, null, null, null, null, null, null, null]);
+  }
+  for (let k = 0; k < 9; k++) rows.push(rows[2 + Math.floor(rnd() * 130)].slice());
+  return rows;
+}
+
+// ---------- lead form ----------
+const WEB3FORMS_KEY = 'df75ce75-fcca-4a46-b1af-33852c53a3ea';
+$('leadForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target, f = new FormData(form), btn = form.querySelector('button[type=submit]'), st = $('formStatus');
+  if (f.get('botcheck')) return;
+  btn.disabled = true; btn.textContent = 'Sending…'; st.textContent = ''; st.className = 'form-status';
+  const r = state && state.res;
+  const summary = r ? [`Score: ${r.score}/100`, `File: ${state.label}`, `Rows: ${r.nR}, Columns: ${r.nC}`, `Duplicates: ${r.dups}`, 'Issues:'].concat(r.issues.map(i => `- [${i.sev}] ${i.title}: ${i.count}`)).join('\n') : 'No file checked';
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify({access_key: WEB3FORMS_KEY, subject: `[Data Checker] Score ${r ? r.score : '?'} — ${f.get('name')}${f.get('org') ? ' (' + f.get('org') + ')' : ''}`, from_name: 'Rungkai Kusut Data Checker', replyto: f.get('email'),
+        name: f.get('name'), company: f.get('org'), email: f.get('email'), phone: f.get('phone'), use_case: f.get('msg'), checker_summary: summary})
+    });
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message);
+    form.reset();
+    st.textContent = 'Terima kasih! We\'ll send your clean-up plan within one working day.'; st.classList.add('ok');
+  } catch (err) {
+    st.innerHTML = 'Sorry, something went wrong. Please email <a href="mailto:hello@rungkaikusut.com">hello@rungkaikusut.com</a>.'; st.classList.add('err');
+  } finally { btn.disabled = false; btn.textContent = 'Send me my clean-up plan →'; }
+});
+})();
+</script>
+</body>
+</html>
