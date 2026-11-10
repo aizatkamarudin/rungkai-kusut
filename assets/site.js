@@ -138,6 +138,16 @@
   /* ---------------- footer wordmark ---------------- */
   const wm = $('#wordmark');
   wm.innerHTML = 'Rungkai Kusut'.split('').map(c => `<span>${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+  // scale the wordmark so it always fills the footer width exactly, never overflowing
+  const fitWordmark = () => {
+    wm.style.fontSize = '100px';
+    const natural = [...wm.children].reduce((w, c) => w + c.getBoundingClientRect().width, 0);
+    const avail = wm.clientWidth;
+    if (natural && avail) wm.style.fontSize = Math.min(260, (100 * avail / natural) * 0.985) + 'px';
+  };
+  fitWordmark();
+  addEventListener('resize', fitWordmark);
+  if (document.fonts) document.fonts.ready.then(fitWordmark);
 
   /* =========================================================
      HERO THREADS — tangled lines that untangle as you scroll

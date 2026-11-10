@@ -407,7 +407,7 @@ section{position:relative}
 .foot-links a{position:relative}
 .foot-links a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
 .foot-links a:hover::after{transform:scaleX(1);transform-origin:left}
-.wordmark{font-size:clamp(44px,12.6vw,210px);font-weight:800;letter-spacing:-.06em;line-height:1;padding-bottom:.16em;margin:clamp(50px,7vw,100px) 0 30px;white-space:nowrap;display:flex}
+.wordmark{font-size:clamp(40px,11vw,190px);font-weight:800;letter-spacing:-.06em;line-height:1;padding-bottom:.16em;margin:clamp(50px,7vw,100px) 0 30px;white-space:nowrap;display:flex}
 .wordmark span{display:inline-block}
 .foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;font-weight:600;border-top:1.5px solid rgba(19,32,59,.3);padding-top:20px}
 
