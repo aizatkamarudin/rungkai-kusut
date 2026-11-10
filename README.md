@@ -13,12 +13,18 @@ Static website for Rungkai Kusut (data, digitalisation & AI for Malaysian SMEs).
 | `404.html`, `robots.txt`, `sitemap.xml`, favicons, `og-image.png` | Site essentials |
 | `_headers` | Cloudflare Pages caching/security headers |
 
-## Deploy on Cloudflare Pages
+## Deploy on Cloudflare (Workers + static assets)
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick `rungkai-kusut`.
-2. Production branch: the branch you want live (e.g. `main`).
-3. Framework preset: **None**. Build command: *(leave empty)*. Build output directory: `/`.
-4. Save and deploy, then add `rungkaikusut.com` under **Custom domains**.
+The site deploys as the `rungkaikusut` Worker; `wrangler.jsonc` tells Cloudflare to serve this
+folder as static assets (`.assetsignore` keeps README/config/.git out).
+
+In the Cloudflare dashboard → Workers & Pages → `rungkaikusut` → **Settings → Build**:
+
+- Git repository: `aizatkamarudin/rungkai-kusut`
+- Branch: the branch you want live (Cloudflare only builds on pushes to that branch)
+- Build command: *(empty)*
+- Deploy command: `npx wrangler deploy`
+- Root directory: `/`
 
 ## Local preview
 
